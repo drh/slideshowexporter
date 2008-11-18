@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3D564C860EBD143500EB6DEF /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 3D564C850EBD143500EB6DEF /* index.html */; };
+		3D564C8A0EBD179C00EB6DEF /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 3D564C890EBD179C00EB6DEF /* index.html */; };
 		74C534C00C5E4AB7002A6BE3 /* Panel.nib in Resources */ = {isa = PBXBuildFile; fileRef = 74C534BE0C5E4AB7002A6BE3 /* Panel.nib */; };
 		89C19E1D0A4C5DA500FFEA3D /* SFExportController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C19E1C0A4C5DA500FFEA3D /* SFExportController.m */; };
 		89C19E220A4C5DD100FFEA3D /* SFExportPluginBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C19E210A4C5DD100FFEA3D /* SFExportPluginBox.m */; };
@@ -20,7 +20,7 @@
 		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		3D564C850EBD143500EB6DEF /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = index.html; path = ../../Desktop/foo1/index.html; sourceTree = SOURCE_ROOT; };
+		3D564C890EBD179C00EB6DEF /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		74C534BF0C5E4AB7002A6BE3 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/Panel.nib; sourceTree = "<group>"; };
 		74F6E6290C5558C7007349A9 /* ExportImageProtocol.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ExportImageProtocol.h; path = ../Interface/ExportImageProtocol.h; sourceTree = SOURCE_ROOT; };
 		74F6E62A0C5558C7007349A9 /* ExportPluginProtocol.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ExportPluginProtocol.h; path = ../Interface/ExportPluginProtocol.h; sourceTree = SOURCE_ROOT; };
@@ -70,7 +70,7 @@
 		089C167CFE841241C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				3D564C850EBD143500EB6DEF /* index.html */,
+				3D564C890EBD179C00EB6DEF /* index.html */,
 				74C534BE0C5E4AB7002A6BE3 /* Panel.nib */,
 				8D5B49B7048680CD000E48DA /* Info.plist */,
 				089C167DFE841241C02AAC07 /* InfoPlist.strings */,
@@ -170,7 +170,7 @@
 			files = (
 				8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */,
 				74C534C00C5E4AB7002A6BE3 /* Panel.nib in Resources */,
-				3D564C860EBD143500EB6DEF /* index.html in Resources */,
+				3D564C8A0EBD179C00EB6DEF /* index.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
