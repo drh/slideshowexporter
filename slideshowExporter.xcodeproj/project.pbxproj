@@ -3,12 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 44;
+	objectVersion = 45;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		3D564C8A0EBD179C00EB6DEF /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 3D564C890EBD179C00EB6DEF /* index.html */; };
-		74C534C00C5E4AB7002A6BE3 /* Panel.nib in Resources */ = {isa = PBXBuildFile; fileRef = 74C534BE0C5E4AB7002A6BE3 /* Panel.nib */; };
+		3D6B433F0EC2ABD100B03956 /* Panel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D6B433D0EC2ABD100B03956 /* Panel.xib */; };
 		89C19E1D0A4C5DA500FFEA3D /* SFExportController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C19E1C0A4C5DA500FFEA3D /* SFExportController.m */; };
 		89C19E220A4C5DD100FFEA3D /* SFExportPluginBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C19E210A4C5DD100FFEA3D /* SFExportPluginBox.m */; };
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
@@ -21,7 +21,7 @@
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		3D564C890EBD179C00EB6DEF /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
-		74C534BF0C5E4AB7002A6BE3 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/Panel.nib; sourceTree = "<group>"; };
+		3D6B433E0EC2ABD100B03956 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Panel.xib; sourceTree = "<group>"; };
 		74F6E6290C5558C7007349A9 /* ExportImageProtocol.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ExportImageProtocol.h; sourceTree = "<group>"; };
 		74F6E62A0C5558C7007349A9 /* ExportPluginProtocol.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ExportPluginProtocol.h; sourceTree = "<group>"; };
 		74F6E62B0C5558C7007349A9 /* ExportPluginBoxProtocol.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ExportPluginBoxProtocol.h; sourceTree = "<group>"; };
@@ -30,7 +30,7 @@
 		89C19E200A4C5DD100FFEA3D /* SFExportPluginBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFExportPluginBox.h; sourceTree = "<group>"; };
 		89C19E210A4C5DD100FFEA3D /* SFExportPluginBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFExportPluginBox.m; sourceTree = "<group>"; };
 		8D5B49B6048680CD000E48DA /* slideshowExporter.iPhotoExporter */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = slideshowExporter.iPhotoExporter; sourceTree = BUILT_PRODUCTS_DIR; };
-		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Info.plist; sourceTree = "<group>"; };
+		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -70,8 +70,8 @@
 		089C167CFE841241C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3D6B433D0EC2ABD100B03956 /* Panel.xib */,
 				3D564C890EBD179C00EB6DEF /* index.html */,
-				74C534BE0C5E4AB7002A6BE3 /* Panel.nib */,
 				8D5B49B7048680CD000E48DA /* Info.plist */,
 				089C167DFE841241C02AAC07 /* InfoPlist.strings */,
 			);
@@ -152,7 +152,7 @@
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "slideshowExporter" */;
-			compatibilityVersion = "Xcode 3.0";
+			compatibilityVersion = "Xcode 3.1";
 			hasScannedForEncodings = 1;
 			mainGroup = 089C166AFE841209C02AAC07 /* simpleFileExporter */;
 			projectDirPath = "";
@@ -169,8 +169,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */,
-				74C534C00C5E4AB7002A6BE3 /* Panel.nib in Resources */,
 				3D564C8A0EBD179C00EB6DEF /* index.html in Resources */,
+				3D6B433F0EC2ABD100B03956 /* Panel.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,12 +197,12 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		74C534BE0C5E4AB7002A6BE3 /* Panel.nib */ = {
+		3D6B433D0EC2ABD100B03956 /* Panel.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				74C534BF0C5E4AB7002A6BE3 /* English */,
+				3D6B433E0EC2ABD100B03956 /* English */,
 			);
-			name = Panel.nib;
+			name = Panel.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -265,7 +265,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+				SDKROOT = macosx10.5;
 			};
 			name = Debug;
 		};
@@ -275,7 +275,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+				SDKROOT = macosx10.5;
 			};
 			name = Release;
 		};
