@@ -22,9 +22,9 @@
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		3D564C890EBD179C00EB6DEF /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		74C534BF0C5E4AB7002A6BE3 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/Panel.nib; sourceTree = "<group>"; };
-		74F6E6290C5558C7007349A9 /* ExportImageProtocol.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ExportImageProtocol.h; path = ../Interface/ExportImageProtocol.h; sourceTree = SOURCE_ROOT; };
-		74F6E62A0C5558C7007349A9 /* ExportPluginProtocol.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ExportPluginProtocol.h; path = ../Interface/ExportPluginProtocol.h; sourceTree = SOURCE_ROOT; };
-		74F6E62B0C5558C7007349A9 /* ExportPluginBoxProtocol.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ExportPluginBoxProtocol.h; path = ../Interface/ExportPluginBoxProtocol.h; sourceTree = SOURCE_ROOT; };
+		74F6E6290C5558C7007349A9 /* ExportImageProtocol.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ExportImageProtocol.h; sourceTree = "<group>"; };
+		74F6E62A0C5558C7007349A9 /* ExportPluginProtocol.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ExportPluginProtocol.h; sourceTree = "<group>"; };
+		74F6E62B0C5558C7007349A9 /* ExportPluginBoxProtocol.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ExportPluginBoxProtocol.h; sourceTree = "<group>"; };
 		89C19E1B0A4C5DA500FFEA3D /* SFExportController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFExportController.h; sourceTree = "<group>"; };
 		89C19E1C0A4C5DA500FFEA3D /* SFExportController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFExportController.m; sourceTree = "<group>"; };
 		89C19E200A4C5DD100FFEA3D /* SFExportPluginBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFExportPluginBox.h; sourceTree = "<group>"; };
@@ -81,6 +81,9 @@
 		08FB77AFFE84173DC02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				74F6E6290C5558C7007349A9 /* ExportImageProtocol.h */,
+				74F6E62B0C5558C7007349A9 /* ExportPluginBoxProtocol.h */,
+				74F6E62A0C5558C7007349A9 /* ExportPluginProtocol.h */,
 				89C19E1B0A4C5DA500FFEA3D /* SFExportController.h */,
 				89C19E1C0A4C5DA500FFEA3D /* SFExportController.m */,
 				89C19E200A4C5DD100FFEA3D /* SFExportPluginBox.h */,
@@ -118,9 +121,6 @@
 		74F6E6300C5558D9007349A9 /* SDK Interface */ = {
 			isa = PBXGroup;
 			children = (
-				74F6E6290C5558C7007349A9 /* ExportImageProtocol.h */,
-				74F6E62A0C5558C7007349A9 /* ExportPluginProtocol.h */,
-				74F6E62B0C5558C7007349A9 /* ExportPluginBoxProtocol.h */,
 			);
 			name = "SDK Interface";
 			sourceTree = "<group>";
