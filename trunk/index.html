@@ -15,45 +15,44 @@ var images = [ {} ];
 function pushimage(basename) {
   images.push({ image: 'images/' + basename + '.jpg', thumbnail: 'thumbnails/' + basename + '.png', title: '' });
 }
-function setInnerHtml(id, html) {
-  var elem = document.getElementById(id);
-  elem.innerHTML = html;
-  return elem;
+function id(x) {
+  return typeof x == 'string' ? document.getElementById(x) : x;
 }
 function imageLink(n, text) {
-  return "<span class='imagelink' title='" + images[n].image + "' onclick='show(" + n + ")'>" + text + "</span>";
+  return [ "<span class='imagelink' title='", images[n].image,
+      "' onclick='show(", n, ")'>", text, "</span>" ].join('');
 }
 function prev(n) {
   if (n > 1) {
     (new Image(0, 600)).src = images[n - 1].image;
-    setInnerHtml('prev', imageLink(n - 1, 'prev'));
+    id('prev').innerHTML = imageLink(n - 1, 'prev');
   } else
-    setInnerHtml('prev', 'prev');
+    id('prev').innerHTML = 'prev';
 }
 function next(n) {
   if (n < images.length - 1) {
     (new Image(0, 600)).src = images[n + 1].image;
-    setInnerHtml('next', imageLink(n + 1, 'next'));    
+    id('next').innerHTML = imageLink(n + 1, 'next');    
   } else
-    setInnerHtml('next', 'next');  
+    id('next').innerHTML= 'next';  
 }
 function show(n) {
-  document.getElementById('photo').src = images[n].image;
-  setInnerHtml('imagetitle', images[n].title);  
-  setInnerHtml('imageurl', images[n].image);
+  id('photo').src = images[n].image;
+  id('imagetitle').innerHTML = images[n].title;  
+  id('imageurl').innerHTML = images[n].image;
   prev(n);
   next(n);
   flip('block', 'none');   
 }
 function flip(image, index) {
-  document.getElementById('imagepage').style.display = image;
-  document.getElementById('indexpage').style.display = index;
+  id('imagepage').style.display = image;
+  id('indexpage').style.display = index;
 }
 function onLoad() {
-  var html = ''; // Build the index.
+  var html = ['']; // Build the index.
   for (var i = 1; i < images.length; ++i)
-    html +=  ' ' + imageLink(i, "<img src='" + images[i].thumbnail + "'>");
-  setInnerHtml('index', html);
+    html.push(imageLink(i, "<img src='" + images[i].thumbnail + "'>"));
+  id('index').innerHTML = html.join(' ');
 }
 </script>
 <script type="text/javascript" src="images.js"></script>
