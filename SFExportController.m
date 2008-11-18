@@ -49,20 +49,11 @@ Copyright © 2007 Apple Inc. All Rights Reserved
 #import "SFExportController.h"
 #import <QuickTime/QuickTime.h>
 
-@interface SFExportController (PrivateMethods)
-
-- (BOOL)createDir:(NSString *)dir;
-- (BOOL)writeImagesJs:(NSArray *)names toPath:(NSString *)dest;
-- (BOOL)writeIndexHtml:(NSString *)dest;
-
-@end
-
 @implementation SFExportController
 
-// public methods
 - (void)awakeFromNib
 {
-	[mSizePopUp selectItemWithTag:1];
+	[mSizePopUp selectItemWithTag:2];
 	[mQualityPopUp selectItemWithTag:2];
 	[mMetadataButton setState:NSOffState];
 }
@@ -74,14 +65,12 @@ Copyright © 2007 Apple Inc. All Rights Reserved
 		mExportMgr = obj;
 		mProgress.message = nil;
 		mProgressLock = [[NSLock alloc] init];
-		mFileManager = [NSFileManager defaultManager];
 	}
 	return self;
 }
 
 - (void)dealloc
 {
-	[mFileManager release];
 	[mExportDir release];
 	[mProgressLock release];
 	[mProgress.message release];
@@ -175,12 +164,12 @@ Copyright © 2007 Apple Inc. All Rights Reserved
 	if([mExportMgr imageCount] > 1)
 		return @"";
 	else
-		return @"0";
+		return @"sfe-0";
 }
 
 - (NSString *)defaultDirectory
 {
-	return @"~/Desktop/";
+	return @"~/Pictures/";
 }
 
 - (BOOL)treatSingleSelectionDifferently
@@ -205,6 +194,8 @@ Copyright © 2007 Apple Inc. All Rights Reserved
 
 - (void)startExport:(NSString *)path
 {
+	NSFileManager *fileMgr = [NSFileManager defaultManager];
+	
 	[self setSize:[mSizePopUp selectedTag]];
 	[self setQuality:[mQualityPopUp selectedTag]];
 	[self setMetadata:[mMetadataButton state]];
@@ -219,8 +210,8 @@ Copyright © 2007 Apple Inc. All Rights Reserved
 		int i;
 		for(i=0; i<count; i++)
 		{
-			NSString *fileName = [NSString stringWithFormat:@"images/%d.jpg",i + 1];
-			if([mFileManager fileExistsAtPath:[path stringByAppendingPathComponent:fileName]])
+			NSString *fileName = [NSString stringWithFormat:@"sfe-%d.jpg",i];
+			if([fileMgr fileExistsAtPath:[path stringByAppendingPathComponent:fileName]])
 				break;
 		}
 		if(i != count)
@@ -238,12 +229,12 @@ Copyright © 2007 Apple Inc. All Rights Reserved
 
 - (void)performExport:(NSString *)path
 {
+	NSLog(@"performExport path: %@", path);
 	int count = [mExportMgr imageCount];
 	BOOL succeeded = YES;
 	mCancelExport = NO;
 	
 	[self setExportDir:path];
-	NSLog(@"performExport path: %@, count: %d", [self exportDir], count);
 	
 	// set export options
 	ImageExportOptions imageOptions;
@@ -284,14 +275,7 @@ Copyright © 2007 Apple Inc. All Rights Reserved
 		imageOptions.metadata = EMBoth;
 	else
 		imageOptions.metadata = NO;
-    
-    // set thumbnail options so they load fast
-	ImageExportOptions thumbnailOptions;
-	thumbnailOptions.quality = EQualityLow;
-	thumbnailOptions.format = kQTFileTypePNG;
-	thumbnailOptions.width = 100;
-	thumbnailOptions.height = 100;
-    
+	
 	// Do the export
 	[self lockProgress];
 	mProgress.indeterminateProgress = NO;
@@ -302,16 +286,7 @@ Copyright © 2007 Apple Inc. All Rights Reserved
 	
 	NSString *dest;
 	
-    // create the thumbnails and images directories
-    NSString *imagesDir = [[self exportDir] stringByAppendingPathComponent: @"images"];
-	NSString *thumbnailsDir = [[self exportDir] stringByAppendingPathComponent: @"thumbnails"];
-	succeeded = [self createDir: (dest = imagesDir)];
-    if (succeeded) {
-		succeeded = [self createDir: (dest = thumbnailsDir)];
-    }
-	
-	NSMutableArray *names = [NSMutableArray arrayWithCapacity:count];
-	if(succeeded && count > 1)
+	if(count > 1)
 	{
 		int i;
 		for(i=0; mCancelExport==NO && succeeded==YES && i<count; i++)
@@ -323,38 +298,22 @@ Copyright © 2007 Apple Inc. All Rights Reserved
 				i + 1, count] retain];
 			[self unlockProgress];
 			
-			dest = [imagesDir stringByAppendingPathComponent:
-                [NSString stringWithFormat:@"%d.jpg", i + 1]];			
+			dest = [[self exportDir] stringByAppendingPathComponent:
+				[NSString stringWithFormat:@"sfe-%d.jpg", i]];
+			
 			succeeded = [mExportMgr exportImageAtIndex:i dest:dest options:&imageOptions];
-            
-            if (succeeded) {
-                dest = [thumbnailsDir stringByAppendingPathComponent:
-                    [NSString stringWithFormat:@"%d.png", i + 1]];			
-				succeeded = [mExportMgr exportImageAtIndex:i dest:dest options:&thumbnailOptions];
-			}
-			[names addObject: [NSString stringWithFormat:@"%d", i + 1]];
 		}
 	}
-	else if (succeeded)
+	else
 	{
 		[self lockProgress];
 		mProgress.currentItem = 0;
 		[mProgress.message autorelease];
 		mProgress.message = @"Image 1 of 1";
 		[self unlockProgress];
-
+		
 		dest = [self exportDir];
 		succeeded = [mExportMgr exportImageAtIndex:0 dest:dest options:&imageOptions];
-	}
-
-	// copy index.html and write images.js
-	if (succeeded) {
-		dest = [[self exportDir] stringByAppendingPathComponent:@"index.html"];
-		succeeded = [self writeIndexHtml:dest];
-	}
-	if (succeeded) {
-		dest = [[self exportDir] stringByAppendingPathComponent:@"images.js"];
-		succeeded = [self writeImagesJs:names toPath:dest];
 	}
 	
 	// Handle failure
@@ -398,52 +357,7 @@ Copyright © 2007 Apple Inc. All Rights Reserved
 
 - (NSString *)name
 {
-	return @"Slideshow Exporter";
-}
-
-// private methods
-- (BOOL)createDir:(NSString *)dir
-{
-	NSError *error;
-	BOOL succeeded = [mFileManager createDirectoryAtPath: dir withIntermediateDirectories: NO
-		attributes: nil error: &error];
-	return succeeded;
-}
-
-- (BOOL)writeImagesJs:(NSArray *)names toPath:(NSString *)dest
-{
-	int i, count = [names count];
-	NSMutableString *buffer =  [NSMutableString stringWithCapacity:20*count];
-	for(i = 0; i < count; ++i) {
-		[buffer appendFormat:@"pushimage('%@');\n", [names objectAtIndex:i]];
-	}
-	[mFileManager removeFileAtPath:dest handler:nil]; // ignore errors
-	NSError *error;
-	BOOL succeeded = [buffer writeToFile:dest atomically:NO
-		encoding:NSUTF8StringEncoding error:&error];
-	if (succeeded)
-		NSLog(@"Wrote initialization to %@", dest);
-	else
-		NSLog(@"Failed to write initialization to %@", dest);
-	return succeeded;
-}
-
-- (BOOL)writeIndexHtml:(NSString *)dest
-{
-	BOOL succeeded = NO;
-	NSBundle *thisBundle = [NSBundle bundleForClass:[self class]];
-	NSString *indexHtmlPath;
-	if (indexHtmlPath = [thisBundle pathForResource:@"index" ofType:@"html"])  {
-		// copy index.html to the top-level export directory
-		[mFileManager removeFileAtPath:dest handler:nil]; // ignore errors
-		succeeded = [mFileManager copyPath:indexHtmlPath toPath:dest handler:nil];
-		if (succeeded)
-			NSLog(@"Copied %@ to %@", indexHtmlPath, dest);
-		else
-			NSLog(@"Failed to copy %@ to %@", indexHtmlPath, dest); 
-	} else
-		NSLog(@"Could not find index.html");
-	return succeeded;
+	return @"Simple File Exporter";
 }
 
 @end

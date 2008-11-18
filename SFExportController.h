@@ -55,11 +55,9 @@ Copyright © 2007 Apple Inc. All Rights Reserved
 	IBOutlet NSBox <ExportPluginBoxProtocol> *mSettingsBox;
 	IBOutlet NSControl *mFirstView;
 	
-	IBOutlet NSPopUpButton *mSizePopUp;
-	IBOutlet NSPopUpButton *mQualityPopUp;
-	IBOutlet NSButton *mMetadataButton;
-	
-	@private NSFileManager *mFileManager;
+	IBOutlet NSPopUpButton	*mSizePopUp;
+	IBOutlet NSPopUpButton	*mQualityPopUp;
+	IBOutlet NSButton		*mMetadataButton;
 	
 	NSString *mExportDir;
 	int mSize;
