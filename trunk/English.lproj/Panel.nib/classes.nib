@@ -1,26 +1,57 @@
-{
-    IBClasses = (
-        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
-        {
-            CLASS = SFExportController; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {
-                mExportMgr = id; 
-                mFirstView = NSControl; 
-                mLastView = NSControl; 
-                mMetadataButton = NSButton; 
-                mQualityPopUp = NSPopUpButton; 
-                mSettingsBox = NSBox; 
-                mSizePopUp = NSPopUpButton; 
-            }; 
-            SUPERCLASS = NSObject; 
-        }, 
-        {
-            CLASS = SFExportPluginBox; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {mPlugin = id; }; 
-            SUPERCLASS = NSBox; 
-        }
-    ); 
-    IBVersion = 1; 
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IBClasses</key>
+	<array>
+		<dict>
+			<key>CLASS</key>
+			<string>SFExportController</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>mExportMgr</key>
+				<string>id</string>
+				<key>mFirstView</key>
+				<string>NSControl</string>
+				<key>mLastView</key>
+				<string>NSControl</string>
+				<key>mMetadataButton</key>
+				<string>NSButton</string>
+				<key>mQualityPopUp</key>
+				<string>NSPopUpButton</string>
+				<key>mSettingsBox</key>
+				<string>NSBox</string>
+				<key>mSizePopUp</key>
+				<string>NSPopUpButton</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>SFExportPluginBox</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>mPlugin</key>
+				<string>id</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSBox</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>FirstResponder</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+	</array>
+	<key>IBVersion</key>
+	<string>1</string>
+</dict>
+</plist>
