@@ -1,0 +1,59 @@
+<html>
+<head>
+<title>Slideshow Exporter</title>
+</head>
+<body>
+
+<h2>Slideshow Exporter</h2>
+
+<p>Slideshow Exporter is an iPhoto plugin for creating simple slideshows from iPhoto albums or selected images.
+  It is intended for making CDs or web pages.</p>
+
+<p>Unlike the iPhoto Web Album exporter, the slide shows created by Slideshow Exporter consist of only the images,
+  thumbnails, and two additional files all written to the specified destination folder.
+  For <em>N</em> images, the Slideshow Exporter writes the images to
+  <code>images/1.jpg</code>, ..., <code>images/<em>N</em>.png</code>,
+  the thumbnails to <code>thumbnails/1.png</code>, ..., <code>thumbnails/<em>N</em>.png</code>,
+  the image list to <code>images.js</code>, and the index page to <code>index.html</code>.</p>
+
+<p>See <a href='http://drhanson.net/demos/sailing/'>http://drhanson.net/demos/sailing/</a>
+  for an example of the outputs created by the Slideshow Exporter.</p>
+  
+<h3>Installation</h3>
+
+<p>Download <a href='http://drhanson.net/downloads/Slideshow%20Exporter.dmg'>Slideshow Exporter.dmg</a>.
+    The disk image should be opened automatically; if not, find and double click the .dmg file.
+    The disk image includes <code>slideshowExporter.iPhotoExporter</code>
+    and this file, <code>readme.html</code>.</p>
+
+<p>Quit iPhoto, if necessary, and perform one of the following steps depending how you
+  want to install the Slideshow Exporter.</p>
+<dl>
+  <dt>For all users on your Mac:</dt>
+  <dd>Open a new Finder window and navigate to Applications. Find iPhoto.app, right-click it,
+    select Show Package Contents, and navigate to Contents>Plugins.
+    Drag slideshowExporter.iPhotoExporter to the Plugins folder.</dd></dl>
+<dl>  
+  <dt>For just yourself:</dt>
+  <dd>Open a Finder window and navigate to your home directory, then follow Library>Application Support>iPhoto>Plugins,
+    creating the last two folders, if necessary.    
+    Drag Slideshow slideshowExporter.iPhotoExporter to this Plugins folder.</dd></dl>
+
+<h3>Use</h3>
+
+<p>In iPhoto, select the album or images you want to export and select File|Export...
+  Click Slideshow and select the image size and quality for the exported images.
+  Click Export and select the destination folder, creating it if necessary.</p>
+  
+<p>To view the slide show, double click <code>index.html</code> in the destination folder.
+  Click on a thumbnail to view that image.
+  The slide show displays images at the Medium size (640 pixels maximum dimension) so they fit on the page, but
+  the images are exported at whatever size you select.
+  So, for example, you can export Full Size images and view them in the slideshow at a more reasonable size.
+  The scaling is done by the browser, so viewing Full Size images is slower.
+  Thumbnails are always exported at 100 pixels maximum dimension and at Low quality.</p>
+
+<hr>
+<address>Dave Hanson, drh at drhanson.net</a> 
+</body>
+</html>
