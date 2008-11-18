@@ -28,7 +28,7 @@
 		89C19E1C0A4C5DA500FFEA3D /* SFExportController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFExportController.m; sourceTree = "<group>"; };
 		89C19E200A4C5DD100FFEA3D /* SFExportPluginBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFExportPluginBox.h; sourceTree = "<group>"; };
 		89C19E210A4C5DD100FFEA3D /* SFExportPluginBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFExportPluginBox.m; sourceTree = "<group>"; };
-		8D5B49B6048680CD000E48DA /* simpleFileExporter.iPhotoExporter */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = simpleFileExporter.iPhotoExporter; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D5B49B6048680CD000E48DA /* slideshowExporter.iPhotoExporter */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = slideshowExporter.iPhotoExporter; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
@@ -109,7 +109,7 @@
 		19C28FB8FE9D52D311CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D5B49B6048680CD000E48DA /* simpleFileExporter.iPhotoExporter */,
+				8D5B49B6048680CD000E48DA /* slideshowExporter.iPhotoExporter */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -127,9 +127,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8D5B49AC048680CD000E48DA /* simpleFileExporter */ = {
+		8D5B49AC048680CD000E48DA /* slideshowExporter */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "simpleFileExporter" */;
+			buildConfigurationList = 1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "slideshowExporter" */;
 			buildPhases = (
 				8D5B49AF048680CD000E48DA /* Resources */,
 				8D5B49B1048680CD000E48DA /* Sources */,
@@ -139,10 +139,10 @@
 			);
 			dependencies = (
 			);
-			name = simpleFileExporter;
+			name = slideshowExporter;
 			productInstallPath = "$(HOME)/Library/Bundles";
 			productName = simpleFileExporter;
-			productReference = 8D5B49B6048680CD000E48DA /* simpleFileExporter.iPhotoExporter */;
+			productReference = 8D5B49B6048680CD000E48DA /* slideshowExporter.iPhotoExporter */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -150,14 +150,14 @@
 /* Begin PBXProject section */
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "simpleFileExporter" */;
+			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "slideshowExporter" */;
 			compatibilityVersion = "Xcode 3.0";
 			hasScannedForEncodings = 1;
 			mainGroup = 089C166AFE841209C02AAC07 /* simpleFileExporter */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8D5B49AC048680CD000E48DA /* simpleFileExporter */,
+				8D5B49AC048680CD000E48DA /* slideshowExporter */,
 			);
 		};
 /* End PBXProject section */
@@ -249,10 +249,10 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = simpleFileExporter_Prefix.pch;
+				GCC_PREFIX_HEADER = slideshowExporter_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Application Support/iPhoto/Plugins";
-				PRODUCT_NAME = simpleFileExporter;
+				PRODUCT_NAME = slideshowExporter;
 				WRAPPER_EXTENSION = iPhotoExporter;
 			};
 			name = Release;
@@ -280,7 +280,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "simpleFileExporter" */ = {
+		1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "slideshowExporter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB913B08733D840010E9CD /* Debug */,
@@ -289,7 +289,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "simpleFileExporter" */ = {
+		1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "slideshowExporter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB913F08733D840010E9CD /* Debug */,
