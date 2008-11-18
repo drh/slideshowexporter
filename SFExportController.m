@@ -164,12 +164,12 @@ Copyright © 2007 Apple Inc. All Rights Reserved
 	if([mExportMgr imageCount] > 1)
 		return @"";
 	else
-		return @"sfe-0";
+		return @"0";
 }
 
 - (NSString *)defaultDirectory
 {
-	return @"~/Pictures/";
+	return @"~/Desktop/";
 }
 
 - (BOOL)treatSingleSelectionDifferently
@@ -210,7 +210,7 @@ Copyright © 2007 Apple Inc. All Rights Reserved
 		int i;
 		for(i=0; i<count; i++)
 		{
-			NSString *fileName = [NSString stringWithFormat:@"sfe-%d.jpg",i];
+			NSString *fileName = [NSString stringWithFormat:@"images/%d.jpg",i + 1];
 			if([fileMgr fileExistsAtPath:[path stringByAppendingPathComponent:fileName]])
 				break;
 		}
@@ -229,12 +229,12 @@ Copyright © 2007 Apple Inc. All Rights Reserved
 
 - (void)performExport:(NSString *)path
 {
-	NSLog(@"performExport path: %@", path);
 	int count = [mExportMgr imageCount];
 	BOOL succeeded = YES;
 	mCancelExport = NO;
 	
 	[self setExportDir:path];
+	NSLog(@"performExport path: %@, count: %d", [self exportDir], count);
 	
 	// set export options
 	ImageExportOptions imageOptions;
@@ -275,7 +275,14 @@ Copyright © 2007 Apple Inc. All Rights Reserved
 		imageOptions.metadata = EMBoth;
 	else
 		imageOptions.metadata = NO;
-	
+    
+    // set thumbnail options so they load fast
+	ImageExportOptions thumbnailOptions;
+	thumbnailOptions.quality = EQualityLow;
+	thumbnailOptions.format = kQTFileTypePNG;
+	thumbnailOptions.width = 100;
+	thumbnailOptions.height = 100;
+    
 	// Do the export
 	[self lockProgress];
 	mProgress.indeterminateProgress = NO;
@@ -286,7 +293,14 @@ Copyright © 2007 Apple Inc. All Rights Reserved
 	
 	NSString *dest;
 	
-	if(count > 1)
+    // create the thumbnails and images directories
+    NSString *imagesDir = [[self exportDir] stringByAppendingPathComponent: @"images"];
+	NSString *thumbnailsDir = [[self exportDir] stringByAppendingPathComponent: @"thumbnails"];
+	succeeded = [self createDir: (dest = imagesDir)];
+    if (succeeded) {
+		succeeded = [self createDir: (dest = thumbnailsDir)];
+    }    	
+	if(succeeded && count > 1)
 	{
 		int i;
 		for(i=0; mCancelExport==NO && succeeded==YES && i<count; i++)
@@ -298,13 +312,18 @@ Copyright © 2007 Apple Inc. All Rights Reserved
 				i + 1, count] retain];
 			[self unlockProgress];
 			
-			dest = [[self exportDir] stringByAppendingPathComponent:
-				[NSString stringWithFormat:@"sfe-%d.jpg", i]];
-			
+			dest = [imagesDir stringByAppendingPathComponent:
+                [NSString stringWithFormat:@"%d.jpg", i + 1]];			
 			succeeded = [mExportMgr exportImageAtIndex:i dest:dest options:&imageOptions];
+            
+            if (succeeded) {
+                dest = [thumbnailsDir stringByAppendingPathComponent:
+                    [NSString stringWithFormat:@"%d.png", i + 1]];			
+				succeeded = [mExportMgr exportImageAtIndex:i dest:dest options:&thumbnailOptions];
+			}
 		}
 	}
-	else
+	else if (succeeded)
 	{
 		[self lockProgress];
 		mProgress.currentItem = 0;
@@ -357,7 +376,15 @@ Copyright © 2007 Apple Inc. All Rights Reserved
 
 - (NSString *)name
 {
-	return @"Simple File Exporter";
+	return @"Slideshow Exporter";
+}
+
+- (BOOL)createDir:(NSString *)dir
+{
+	NSError *error;
+	BOOL succeeded = [[NSFileManager defaultManager] createDirectoryAtPath: dir withIntermediateDirectories: NO
+		attributes: nil error: &error];
+	return succeeded;
 }
 
 @end

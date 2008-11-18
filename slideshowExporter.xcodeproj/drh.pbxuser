@@ -67,6 +67,20 @@
 			PBXPerProjectTemplateStateSaveDate = 247265304;
 			PBXWorkspaceStateSaveDate = 247265304;
 		};
+		perUserProjectItems = {
+			3D564C660EBCFC9000EB6DEF /* PBXBookmark */ = 3D564C660EBCFC9000EB6DEF /* PBXBookmark */;
+			3D564C6A0EBD06EC00EB6DEF /* PBXTextBookmark */ = 3D564C6A0EBD06EC00EB6DEF /* PBXTextBookmark */;
+			3D564C6B0EBD06EC00EB6DEF /* PBXTextBookmark */ = 3D564C6B0EBD06EC00EB6DEF /* PBXTextBookmark */;
+			3D564C730EBD07B400EB6DEF /* PBXTextBookmark */ = 3D564C730EBD07B400EB6DEF /* PBXTextBookmark */;
+			3D564C740EBD07B400EB6DEF /* PBXTextBookmark */ = 3D564C740EBD07B400EB6DEF /* PBXTextBookmark */;
+			3D564C770EBD07B400EB6DEF /* PBXTextBookmark */ = 3D564C770EBD07B400EB6DEF /* PBXTextBookmark */;
+			3D564C780EBD0A3600EB6DEF /* PBXTextBookmark */ = 3D564C780EBD0A3600EB6DEF /* PBXTextBookmark */;
+			3D564C790EBD0A3600EB6DEF /* PBXTextBookmark */ = 3D564C790EBD0A3600EB6DEF /* PBXTextBookmark */;
+			3D564C7F0EBD128B00EB6DEF /* PBXTextBookmark */ = 3D564C7F0EBD128B00EB6DEF /* PBXTextBookmark */;
+			3D564C800EBD128B00EB6DEF /* PBXTextBookmark */ = 3D564C800EBD128B00EB6DEF /* PBXTextBookmark */;
+			3D564C820EBD12DD00EB6DEF /* PBXTextBookmark */ = 3D564C820EBD12DD00EB6DEF /* PBXTextBookmark */;
+			3D564C830EBD12DD00EB6DEF /* PBXTextBookmark */ = 3D564C830EBD12DD00EB6DEF /* PBXTextBookmark */;
+		};
 		sourceControlManager = 3D564C290EBCF3D000EB6DEF /* Source Control */;
 		userBuildSettings = {
 		};
@@ -81,6 +95,132 @@
 	3D564C2A0EBCF3D000EB6DEF /* Code sense */ = {
 		isa = PBXCodeSenseManager;
 		indexTemplatePath = "";
+	};
+	3D564C660EBCFC9000EB6DEF /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 89C19E1B0A4C5DA500FFEA3D /* SFExportController.h */;
+	};
+	3D564C6A0EBD06EC00EB6DEF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "warning: 'NSFileManager' may not respond to '-createDirectoryAtPath:'";
+		fRef = 89C19E1C0A4C5DA500FFEA3D /* SFExportController.m */;
+		rLen = 0;
+		rLoc = 298;
+		rType = 1;
+	};
+	3D564C6B0EBD06EC00EB6DEF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 89C19E1C0A4C5DA500FFEA3D /* SFExportController.m */;
+		name = "SFExportController.m: 300";
+		rLen = 0;
+		rLoc = 6935;
+		rType = 0;
+		vrLen = 441;
+		vrLoc = 6754;
+	};
+	3D564C730EBD07B400EB6DEF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 89C19E1C0A4C5DA500FFEA3D /* SFExportController.m */;
+		name = "SFExportController.m: 232";
+		rLen = 0;
+		rLoc = 5074;
+		rType = 0;
+		vrLen = 1212;
+		vrLoc = 4126;
+	};
+	3D564C740EBD07B400EB6DEF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 89C19E1C0A4C5DA500FFEA3D /* SFExportController.m */;
+		name = "SFExportController.m: 303";
+		rLen = 0;
+		rLoc = 7046;
+		rType = 0;
+		vrLen = 1680;
+		vrLoc = 6110;
+	};
+	3D564C770EBD07B400EB6DEF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 89C19E1B0A4C5DA500FFEA3D /* SFExportController.h */;
+		name = "SFExportController.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1374;
+		vrLoc = 1808;
+	};
+	3D564C780EBD0A3600EB6DEF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 89C19E1C0A4C5DA500FFEA3D /* SFExportController.m */;
+		name = "SFExportController.m: 355";
+		rLen = 0;
+		rLoc = 8587;
+		rType = 0;
+		vrLen = 1385;
+		vrLoc = 7442;
+	};
+	3D564C790EBD0A3600EB6DEF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 89C19E1B0A4C5DA500FFEA3D /* SFExportController.h */;
+		name = "SFExportController.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1374;
+		vrLoc = 1808;
+	};
+	3D564C7F0EBD128B00EB6DEF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 89C19E1C0A4C5DA500FFEA3D /* SFExportController.m */;
+		name = "SFExportController.m: 299";
+		rLen = 0;
+		rLoc = 6922;
+		rType = 0;
+		vrLen = 1646;
+		vrLoc = 5932;
+	};
+	3D564C800EBD128B00EB6DEF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 89C19E1B0A4C5DA500FFEA3D /* SFExportController.h */;
+		name = "SFExportController.h: 87";
+		rLen = 0;
+		rLoc = 3213;
+		rType = 0;
+		vrLen = 1423;
+		vrLoc = 1808;
+	};
+	3D564C820EBD12DD00EB6DEF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 89C19E1C0A4C5DA500FFEA3D /* SFExportController.m */;
+		name = "SFExportController.m: 213";
+		rLen = 0;
+		rLoc = 4655;
+		rType = 0;
+		vrLen = 1204;
+		vrLoc = 4111;
+	};
+	3D564C830EBD12DD00EB6DEF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 89C19E1B0A4C5DA500FFEA3D /* SFExportController.h */;
+		name = "SFExportController.h: 87";
+		rLen = 0;
+		rLoc = 3213;
+		rType = 0;
+		vrLen = 1423;
+		vrLoc = 1808;
+	};
+	89C19E1B0A4C5DA500FFEA3D /* SFExportController.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {723, 1260}}";
+			sepNavSelRange = "{3213, 0}";
+			sepNavVisRange = "{1808, 1423}";
+		};
+	};
+	89C19E1C0A4C5DA500FFEA3D /* SFExportController.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {723, 5852}}";
+			sepNavSelRange = "{4655, 0}";
+			sepNavVisRange = "{4111, 1204}";
+		};
 	};
 	8D5B49AC048680CD000E48DA /* slideshowExporter */ = {
 		activeExec = 0;

@@ -83,4 +83,7 @@ Copyright © 2007 Apple Inc. All Rights Reserved
 - (int)metadata;
 - (void)setMetadata:(int)metadata;
 
+// private methods
+- (BOOL)createDir:(NSString *)dir;
+
 @end
