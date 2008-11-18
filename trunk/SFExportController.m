@@ -49,52 +49,15 @@ Copyright © 2007 Apple Inc. All Rights Reserved
 #import "SFExportController.h"
 #import <QuickTime/QuickTime.h>
 
+@interface SFExportController (PrivateMethods)
+
+- (BOOL)createDir:(NSString *)dir;
+- (BOOL)writeImagesJs:(NSArray *)names toPath:(NSString *)dest;
+- (BOOL)writeIndexHtml:(NSString *)dest;
+
+@end
+
 @implementation SFExportController
-
-// private meethods
-- (BOOL)createDir:(NSString *)dir
-{
-	NSError *error;
-	BOOL succeeded = [mFileManager createDirectoryAtPath: dir withIntermediateDirectories: NO
-		attributes: nil error: &error];
-	return succeeded;
-}
-
-- (BOOL)writeImagesJs:(NSArray *)names toPath:(NSString *)dest
-{
-	int i, count = [names count];
-	NSMutableString *buffer =  [NSMutableString stringWithCapacity:20*count];
-	for(i = 0; i < count; ++i) {
-		[buffer appendFormat:@"pushimage('%@');\n", [names objectAtIndex:i]];
-	}
-	[mFileManager removeFileAtPath:dest handler:nil]; // ignore errors
-	NSError *error;
-	BOOL succeeded = [buffer writeToFile:dest atomically:NO
-		encoding:NSUTF8StringEncoding error:&error];
-	if (succeeded)
-		NSLog(@"Wrote initialization to %@", dest);
-	else
-		NSLog(@"Failed to write initialization to %@", dest);
-	return succeeded;
-}
-
-- (BOOL)writeIndexHtml:(NSString *)dest
-{
-	BOOL succeeded = NO;
-	NSBundle *thisBundle = [NSBundle bundleForClass:[self class]];
-	NSString *indexHtmlPath;
-	if (indexHtmlPath = [thisBundle pathForResource:@"index" ofType:@"html"])  {
-		// copy index.html to the top-level export directory
-		[mFileManager removeFileAtPath:dest handler:nil]; // ignore errors
-		succeeded = [mFileManager copyPath:indexHtmlPath toPath:dest handler:nil];
-		if (succeeded)
-			NSLog(@"Copied %@ to %@", indexHtmlPath, dest);
-		else
-			NSLog(@"Failed to copy %@ to %@", indexHtmlPath, dest); 
-	} else
-		NSLog(@"Could not find index.html");
-	return succeeded;
-}
 
 // public methods
 - (void)awakeFromNib
@@ -436,6 +399,51 @@ Copyright © 2007 Apple Inc. All Rights Reserved
 - (NSString *)name
 {
 	return @"Slideshow Exporter";
+}
+
+// private methods
+- (BOOL)createDir:(NSString *)dir
+{
+	NSError *error;
+	BOOL succeeded = [mFileManager createDirectoryAtPath: dir withIntermediateDirectories: NO
+		attributes: nil error: &error];
+	return succeeded;
+}
+
+- (BOOL)writeImagesJs:(NSArray *)names toPath:(NSString *)dest
+{
+	int i, count = [names count];
+	NSMutableString *buffer =  [NSMutableString stringWithCapacity:20*count];
+	for(i = 0; i < count; ++i) {
+		[buffer appendFormat:@"pushimage('%@');\n", [names objectAtIndex:i]];
+	}
+	[mFileManager removeFileAtPath:dest handler:nil]; // ignore errors
+	NSError *error;
+	BOOL succeeded = [buffer writeToFile:dest atomically:NO
+		encoding:NSUTF8StringEncoding error:&error];
+	if (succeeded)
+		NSLog(@"Wrote initialization to %@", dest);
+	else
+		NSLog(@"Failed to write initialization to %@", dest);
+	return succeeded;
+}
+
+- (BOOL)writeIndexHtml:(NSString *)dest
+{
+	BOOL succeeded = NO;
+	NSBundle *thisBundle = [NSBundle bundleForClass:[self class]];
+	NSString *indexHtmlPath;
+	if (indexHtmlPath = [thisBundle pathForResource:@"index" ofType:@"html"])  {
+		// copy index.html to the top-level export directory
+		[mFileManager removeFileAtPath:dest handler:nil]; // ignore errors
+		succeeded = [mFileManager copyPath:indexHtmlPath toPath:dest handler:nil];
+		if (succeeded)
+			NSLog(@"Copied %@ to %@", indexHtmlPath, dest);
+		else
+			NSLog(@"Failed to copy %@ to %@", indexHtmlPath, dest); 
+	} else
+		NSLog(@"Could not find index.html");
+	return succeeded;
 }
 
 @end

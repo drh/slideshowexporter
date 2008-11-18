@@ -59,7 +59,7 @@ Copyright © 2007 Apple Inc. All Rights Reserved
 	IBOutlet NSPopUpButton *mQualityPopUp;
 	IBOutlet NSButton *mMetadataButton;
 	
-	NSFileManager *mFileManager;
+	@private NSFileManager *mFileManager;
 	
 	NSString *mExportDir;
 	int mSize;
