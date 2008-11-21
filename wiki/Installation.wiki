@@ -1,0 +1,17 @@
+#summary Installation Instructions
+
+Download Slideshow Exporter.dmg. The disk image should be opened automatically; if not, find and double click the .dmg file. The disk image includes slideshowExporter.iPhotoExporter and readme.html.
+
+Quit iPhoto, if necessary, and perform one of the following steps depending how you want to install the Slideshow Exporter.
+
+*For all users on your Mac*:
+
+  # Open a new Finder window and navigate to Applications.
+  # Find iPhoto.app, right-click it, select Show Package Contents, and navigate to Contents>Plugins.
+  # Drag slideshowExporter.iPhotoExporter to this Plugins folder.
+
+*For just yourself*:
+
+  # Open a Finder window and navigate to your home directory.
+  # Follow Library>Application Support>iPhoto>Plugins, creating the last two folders, if necessary.
+  # Drag slideshowExporter.iPhotoExporter to this Plugins folder.
