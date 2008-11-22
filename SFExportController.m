@@ -1,3 +1,11 @@
+//
+//  SFExportController.m
+//  SFExportController
+//
+//  Created by Apple; modified by Dave Hanson on 11/17/2008.
+//  Copyright 2008 Google Inc. All rights reserved.
+//
+
 /*
 
 File: SFExportController.m
