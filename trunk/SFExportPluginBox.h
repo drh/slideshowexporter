@@ -1,5 +1,5 @@
 //
-//  SFExportPluginBox.m
+//  SFExportPluginBox.h
 //  SFExportPluginBox
 //
 //  Created by Apple; modified by Dave Hanson on 11/17/2008.
