@@ -7,7 +7,6 @@
 //
 
 /*
-
 File: SFExportController.h
 
 Version: 1.0
@@ -51,39 +50,41 @@ STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 
 Copyright © 2007 Apple Inc. All Rights Reserved
-
 */
 
 #import <Cocoa/Cocoa.h>
 #import "ExportPluginProtocol.h"
 
+// iPhoto export controller derived from the iPhoto export plugin interface.
 @interface SFExportController : NSObject <ExportPluginProtocol> {
-	id <ExportImageProtocol> mExportMgr;
-	
-	IBOutlet NSBox <ExportPluginBoxProtocol> *mSettingsBox;
-	IBOutlet NSControl *mFirstView;
-	
-	IBOutlet NSPopUpButton *mSizePopUp;
-	IBOutlet NSPopUpButton *mQualityPopUp;
-	IBOutlet NSButton *mMetadataButton;
-	
-	@private NSFileManager *mFileManager;
-	
-	NSString *mExportDir;
-	int mSize;
-	int mQuality;
-	int mMetadata;
-	
-	ExportPluginProgress mProgress;
-	NSLock *mProgressLock;
-	BOOL mCancelExport;
+ @public
+  id <ExportImageProtocol> exportMgr_;
+  
+  IBOutlet NSBox <ExportPluginBoxProtocol> *settingsBox_;
+  IBOutlet NSControl *firstView_;
+  
+  IBOutlet NSPopUpButton *sizePopUp_;
+  IBOutlet NSPopUpButton *qualityPopUp_;
+  IBOutlet NSButton *metadataButton_;
+  
+ @private
+  NSFileManager *fileManager_;
+  
+  NSString *exportDir_;
+  int size_;
+  int quality_;
+  int metadata_;
+  
+  ExportPluginProgress progress_;
+  NSLock *progressLock_;
+  BOOL cancelExport_;
 }
 
-// overrides
+// Overrides
 - (void)awakeFromNib;
 - (void)dealloc;
 
-// getters/setters
+// Getters/setters
 - (NSString *)exportDir;
 - (void)setExportDir:(NSString *)dir;
 - (int)size;

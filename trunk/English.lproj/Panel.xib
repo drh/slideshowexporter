@@ -8,7 +8,6 @@
 		<string key="IBDocument.HIToolboxVersion">352.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="7"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -42,7 +41,7 @@
 				<string key="NSWindowContentMaxSize">{3.40282e+38, 3.40282e+38}</string>
 				<string key="NSWindowContentMinSize">{213, 107}</string>
 				<object class="NSView" key="NSWindowView" id="798440683">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -350,7 +349,6 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{545, 301}</string>
-					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMinSize">{213, 129}</string>
@@ -362,51 +360,11 @@
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">mSettingsBox</string>
-						<reference key="source" ref="1042779920"/>
-						<reference key="destination" ref="214818521"/>
-					</object>
-					<int key="connectionID">37</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">mMetadataButton</string>
-						<reference key="source" ref="1042779920"/>
-						<reference key="destination" ref="25521795"/>
-					</object>
-					<int key="connectionID">38</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">mLastView</string>
 						<reference key="source" ref="1042779920"/>
 						<reference key="destination" ref="25521795"/>
 					</object>
 					<int key="connectionID">39</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">mFirstView</string>
-						<reference key="source" ref="1042779920"/>
-						<reference key="destination" ref="158376718"/>
-					</object>
-					<int key="connectionID">40</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">mSizePopUp</string>
-						<reference key="source" ref="1042779920"/>
-						<reference key="destination" ref="158376718"/>
-					</object>
-					<int key="connectionID">44</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">mQualityPopUp</string>
-						<reference key="source" ref="1042779920"/>
-						<reference key="destination" ref="445783871"/>
-					</object>
-					<int key="connectionID">45</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -431,6 +389,46 @@
 						<reference key="destination" ref="1042779920"/>
 					</object>
 					<int key="connectionID">48</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">settingsBox_</string>
+						<reference key="source" ref="1042779920"/>
+						<reference key="destination" ref="214818521"/>
+					</object>
+					<int key="connectionID">55</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">firstView_</string>
+						<reference key="source" ref="1042779920"/>
+						<reference key="destination" ref="158376718"/>
+					</object>
+					<int key="connectionID">56</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">sizePopUp_</string>
+						<reference key="source" ref="1042779920"/>
+						<reference key="destination" ref="158376718"/>
+					</object>
+					<int key="connectionID">57</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">qualityPopUp_</string>
+						<reference key="source" ref="1042779920"/>
+						<reference key="destination" ref="445783871"/>
+					</object>
+					<int key="connectionID">58</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">metadataButton_</string>
+						<reference key="source" ref="1042779920"/>
+						<reference key="destination" ref="25521795"/>
+					</object>
+					<int key="connectionID">59</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -757,13 +755,14 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">54</int>
+			<int key="maxID">59</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBPartialClassDescription">
 					<string key="className">FirstResponder</string>
+					<string key="superclassName">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBUserSource</string>
 						<string key="minorKey"/>
@@ -776,12 +775,12 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSMutableArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>mExportMgr</string>
-							<string>mFirstView</string>
-							<string>mMetadataButton</string>
-							<string>mQualityPopUp</string>
-							<string>mSettingsBox</string>
-							<string>mSizePopUp</string>
+							<string>exportMgr_</string>
+							<string>firstView_</string>
+							<string>metadataButton_</string>
+							<string>qualityPopUp_</string>
+							<string>settingsBox_</string>
+							<string>sizePopUp_</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
