@@ -7,7 +7,6 @@
 //
 
 /*
-
 File: SFExportController.m
 
 Version: 1.0
@@ -51,12 +50,12 @@ STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 
 Copyright © 2007 Apple Inc. All Rights Reserved
-
 */
 
 #import "SFExportController.h"
 #import <QuickTime/QuickTime.h>
 
+// Private methods used in SFExportController.
 @interface SFExportController (PrivateMethods)
 
 - (BOOL)createDir:(NSString *)dir;
@@ -68,390 +67,351 @@ Copyright © 2007 Apple Inc. All Rights Reserved
 @implementation SFExportController
 
 // public methods
-- (void)awakeFromNib
-{
-	[mSizePopUp selectItemWithTag:1];
-	[mQualityPopUp selectItemWithTag:2];
-	[mMetadataButton setState:NSOffState];
+- (void)awakeFromNib {
+  [sizePopUp_ selectItemWithTag:1];
+  [qualityPopUp_ selectItemWithTag:2];
+  [metadataButton_ setState:NSOffState];
 }
 
-- (id)initWithExportImageObj:(id <ExportImageProtocol>)obj
-{
-	if(self = [super init])
-	{
-		mExportMgr = obj;
-		mProgress.message = nil;
-		mProgressLock = [[NSLock alloc] init];
-		mFileManager = [NSFileManager defaultManager];
-	}
-	return self;
+- (id)initWithExportImageObj:(id <ExportImageProtocol>)obj {
+  if (self = [super init]) {
+    exportMgr_ = obj;
+    progress_.message = nil;
+    progressLock_ = [[NSLock alloc] init];
+    fileManager_ = [NSFileManager defaultManager];
+  }
+  return self;
 }
 
-- (void)dealloc
-{
-	[mFileManager release];
-	[mExportDir release];
-	[mProgressLock release];
-	[mProgress.message release];
-	
-	[super dealloc];
+- (void)dealloc {
+  [fileManager_ release];
+  [exportDir_ release];
+  [progressLock_ release];
+  [progress_.message release];
+  
+  [super dealloc];
 }
 
 // getters/setters
-- (NSString *)exportDir
-{
-	return mExportDir;
+- (NSString *)exportDir {
+  return exportDir_;
 }
 
-- (void)setExportDir:(NSString *)dir
-{
-	[mExportDir release];
-	mExportDir = [dir retain];
+- (void)setExportDir:(NSString *)dir {
+  [exportDir_ autorelease];
+  exportDir_ = [dir retain];
 }
 
-- (int)size
-{
-	return mSize;
+- (int)size {
+  return size_;
 }
 
-- (void)setSize:(int)size
-{
-	mSize = size;
+- (void)setSize:(int)size {
+  size_ = size;
 }
 
-- (int)quality
-{
-	return mQuality;
+- (int)quality {
+  return quality_;
 }
 
-- (void)setQuality:(int)quality
-{
-	mQuality = quality;
+- (void)setQuality:(int)quality {
+  quality_ = quality;
 }
 
-- (int)metadata
-{
-	return mMetadata;
+- (int)metadata {
+  return metadata_;
 }
 
-- (void)setMetadata:(int)metadata
-{
-	mMetadata = metadata;
+- (void)setMetadata:(int)metadata {
+  metadata_ = metadata;
 }
 
 // protocol implementation
-- (NSView <ExportPluginBoxProtocol> *)settingsView
-{
-	return mSettingsBox;
+- (NSView <ExportPluginBoxProtocol> *)settingsView {
+  return settingsBox_;
 }
 
-- (NSView *)firstView
-{
-	return mFirstView;
+- (NSView *)firstView {
+  return firstView_;
 }
 
-- (void)viewWillBeActivated
-{
-
+- (void)viewWillBeActivated {
 }
 
-- (void)viewWillBeDeactivated
-{
-
+- (void)viewWillBeDeactivated {
 }
 
-- (NSString *)requiredFileType
-{
-	if([mExportMgr imageCount] > 1)
-		return @"";
-	else
-		return @"jpg";
+- (NSString *)requiredFileType {
+  if ([exportMgr_ imageCount] > 1)
+    return @"";
+  else
+    return @"jpg";
 }
 
-- (BOOL)wantsDestinationPrompt
-{
-	return YES;
+- (BOOL)wantsDestinationPrompt {
+  return YES;
 }
 
-- (NSString*)getDestinationPath
-{
-	return @"";
+- (NSString *)getDestinationPath {
+  return @"";
 }
 
-- (NSString *)defaultFileName
-{
-	if([mExportMgr imageCount] > 1)
-		return @"";
-	else
-		return @"0";
+- (NSString *)defaultFileName {
+  if ([exportMgr_ imageCount] > 1)
+    return @"";
+  else
+    return @"0";
 }
 
-- (NSString *)defaultDirectory
-{
-	return @"~/Desktop/";
+- (NSString *)defaultDirectory {
+  return @"~/Desktop/";
 }
 
-- (BOOL)treatSingleSelectionDifferently
-{
-	return YES;
+- (BOOL)treatSingleSelectionDifferently {
+  return YES;
 }
 
-- (BOOL)handlesMovieFiles
-{
-	return NO;
+- (BOOL)handlesMovieFiles {
+  return NO;
 }
 
-- (BOOL)validateUserCreatedPath:(NSString*)path
-{
-	return NO;
+- (BOOL)validateUserCreatedPath:(NSString *)path {
+  return NO;
 }
 
-- (void)clickExport
-{
-	[mExportMgr clickExport];
+- (void)clickExport {
+  [exportMgr_ clickExport];
 }
 
-- (void)startExport:(NSString *)path
-{
-	[self setSize:[mSizePopUp selectedTag]];
-	[self setQuality:[mQualityPopUp selectedTag]];
-	[self setMetadata:[mMetadataButton state]];
-	
-	int count = [mExportMgr imageCount];
-	
-	// check for conflicting file names
-	if(count == 1)
-		[mExportMgr startExport];
-	else
-	{
-		int i;
-		for(i=0; i<count; i++)
-		{
-			NSString *fileName = [NSString stringWithFormat:@"images/%d.jpg",i + 1];
-			if([mFileManager fileExistsAtPath:[path stringByAppendingPathComponent:fileName]])
-				break;
-		}
-		if(i != count)
-		{
-			if (NSRunCriticalAlertPanel(@"File exists", @"One or more images already exist in directory.", 
-										@"Replace", nil, @"Cancel") == NSAlertDefaultReturn)
-				[mExportMgr startExport];
-			else
-				return;
-		}
-		else
-			[mExportMgr startExport];
-	}
-}
-
-- (void)performExport:(NSString *)path
-{
-	int count = [mExportMgr imageCount];
-	BOOL succeeded = YES;
-	mCancelExport = NO;
-	
-	[self setExportDir:path];
-	NSLog(@"performExport path: %@, count: %d", [self exportDir], count);
-	
-	// set export options
-	ImageExportOptions imageOptions;
-	imageOptions.format = kQTFileTypeJPEG;
-	switch([self quality])
-	{
-		case 0: imageOptions.quality = EQualityLow; break;
-		case 1: imageOptions.quality = EQualityMed; break;
-		case 2: imageOptions.quality = EQualityHigh; break;
-		case 3: imageOptions.quality = EQualityMax; break;
-		default: imageOptions.quality = EQualityHigh; break;
-	}
-	imageOptions.rotation = 0.0;
-	switch([self size])
-	{
-		case 0:
-			imageOptions.width = 320;
-			imageOptions.height = 320;
-			break;
-		case 1:
-			imageOptions.width = 640;
-			imageOptions.height = 640;
-			break;
-		case 2:
-			imageOptions.width = 1280;
-			imageOptions.height = 1280;
-			break;
-		case 3:
-			imageOptions.width = 99999;
-			imageOptions.height = 99999;
-			break;
-		default:
-			imageOptions.width = 1280;
-			imageOptions.height = 1280;
-			break;
-	}
-	if([self metadata] == NSOnState)
-		imageOptions.metadata = EMBoth;
-	else
-		imageOptions.metadata = NO;
-    
-    // set thumbnail options so they load fast
-	ImageExportOptions thumbnailOptions;
-	thumbnailOptions.quality = EQualityLow;
-	thumbnailOptions.format = kQTFileTypePNG;
-	thumbnailOptions.width = 100;
-	thumbnailOptions.height = 100;
-    
-	// Do the export
-	[self lockProgress];
-	mProgress.indeterminateProgress = NO;
-	mProgress.totalItems = count - 1;
-	[mProgress.message autorelease];
-	mProgress.message = @"Exporting";
-	[self unlockProgress];
-	
-	NSString *dest;
-	
-    // create the thumbnails and images directories
-    NSString *imagesDir = [[self exportDir] stringByAppendingPathComponent: @"images"];
-	NSString *thumbnailsDir = [[self exportDir] stringByAppendingPathComponent: @"thumbnails"];
-	succeeded = [self createDir: (dest = imagesDir)];
-    if (succeeded) {
-		succeeded = [self createDir: (dest = thumbnailsDir)];
+- (void)startExport:(NSString *)path {
+  [self setSize:[sizePopUp_ selectedTag]];
+  [self setQuality:[qualityPopUp_ selectedTag]];
+  [self setMetadata:[metadataButton_ state]];
+  
+  int count = [exportMgr_ imageCount];
+  
+  // check for conflicting file names
+  if (count == 1) {
+    [exportMgr_ startExport];
+  } else {
+    int i;
+    for (i = 0; i < count; ++i) {
+      NSString *fileName = [NSString stringWithFormat:@"images/%d.jpg", i + 1];
+      if ([fileManager_ fileExistsAtPath:
+          [path stringByAppendingPathComponent:fileName]])
+        break;
     }
-	
-	NSMutableArray *names = [NSMutableArray arrayWithCapacity:count];
-	if(succeeded && count > 1)
-	{
-		int i;
-		for(i=0; mCancelExport==NO && succeeded==YES && i<count; i++)
-		{
-			[self lockProgress];
-			mProgress.currentItem = i;
-			[mProgress.message autorelease];
-			mProgress.message = [[NSString stringWithFormat:@"Image %d of %d",
-				i + 1, count] retain];
-			[self unlockProgress];
-			
-			dest = [imagesDir stringByAppendingPathComponent:
-                [NSString stringWithFormat:@"%d.jpg", i + 1]];			
-			succeeded = [mExportMgr exportImageAtIndex:i dest:dest options:&imageOptions];
-            
-            if (succeeded) {
-                dest = [thumbnailsDir stringByAppendingPathComponent:
-                    [NSString stringWithFormat:@"%d.png", i + 1]];			
-				succeeded = [mExportMgr exportImageAtIndex:i dest:dest options:&thumbnailOptions];
-			}
-			[names addObject: [NSString stringWithFormat:@"%d", i + 1]];
-		}
-	}
-	else if (succeeded)
-	{
-		[self lockProgress];
-		mProgress.currentItem = 0;
-		[mProgress.message autorelease];
-		mProgress.message = @"Image 1 of 1";
-		[self unlockProgress];
-
-		dest = [self exportDir];
-		succeeded = [mExportMgr exportImageAtIndex:0 dest:dest options:&imageOptions];
-	}
-
-	// copy index.html and write images.js
-	if (succeeded) {
-		dest = [[self exportDir] stringByAppendingPathComponent:@"index.html"];
-		succeeded = [self writeIndexHtml:dest];
-	}
-	if (succeeded) {
-		dest = [[self exportDir] stringByAppendingPathComponent:@"images.js"];
-		succeeded = [self writeImagesJs:names toPath:dest];
-	}
-	
-	// Handle failure
-	if (!succeeded) {
-		[self lockProgress];
-		[mProgress.message autorelease];
-		mProgress.message = [[NSString stringWithFormat:@"Unable to create %@", dest] retain];
-		[self cancelExport];
-		mProgress.shouldCancel = YES;
-		[self unlockProgress];
-		return;
-	}
-	
-	// close the progress panel when done
-	[self lockProgress];
-	[mProgress.message autorelease];
-	mProgress.message = nil;
-	mProgress.shouldStop = YES;
-	[self unlockProgress];
+    if (i != count) {
+      if (NSRunCriticalAlertPanel(@"File exists",
+          @"One or more images already exist in directory.", 
+          @"Replace", nil, @"Cancel") == NSAlertDefaultReturn)
+        [exportMgr_ startExport];
+      else
+        return;
+    } else {
+      [exportMgr_ startExport];
+    }
+  }
 }
 
-- (ExportPluginProgress *)progress
-{
-	return &mProgress;
+- (void)performExport:(NSString *)path {
+  int count = [exportMgr_ imageCount];
+  BOOL succeeded = YES;
+  cancelExport_ = NO;
+  
+  [self setExportDir:path];
+  NSLog(@"performExport path: %@, count: %d", [self exportDir], count);
+  
+  // set export options
+  ImageExportOptions imageOptions;
+  imageOptions.format = kQTFileTypeJPEG;
+  switch([self quality]) {
+    case 0:  imageOptions.quality = EQualityLow;  break;
+    case 1:  imageOptions.quality = EQualityMed;  break;
+    case 2:  imageOptions.quality = EQualityHigh; break;
+    case 3:  imageOptions.quality = EQualityMax;  break;
+    default: imageOptions.quality = EQualityHigh; break;
+  }
+  imageOptions.rotation = 0.0;
+  switch([self size]) {
+    case 0:
+      imageOptions.width = 320;
+      imageOptions.height = 320;
+      break;
+    case 1:
+      imageOptions.width = 640;
+      imageOptions.height = 640;
+      break;
+    case 2:
+      imageOptions.width = 1280;
+      imageOptions.height = 1280;
+      break;
+    case 3:
+      imageOptions.width = 99999;
+      imageOptions.height = 99999;
+      break;
+    default:
+      imageOptions.width = 1280;
+      imageOptions.height = 1280;
+      break;
+  }
+  if([self metadata] == NSOnState)
+    imageOptions.metadata = EMBoth;
+  else
+    imageOptions.metadata = NO;
+    
+  // set thumbnail options so they load fast
+  ImageExportOptions thumbnailOptions;
+  thumbnailOptions.quality = EQualityLow;
+  thumbnailOptions.format = kQTFileTypePNG;
+  thumbnailOptions.width = 100;
+  thumbnailOptions.height = 100;
+    
+  // Do the export
+  [self lockProgress];
+  progress_.indeterminateProgress = NO;
+  progress_.totalItems = count - 1;
+  [progress_.message autorelease];
+  progress_.message = @"Exporting";
+  [self unlockProgress];
+  
+  NSString *dest;
+  
+  // create the thumbnails and images directories
+  NSString *imagesDir
+      = [[self exportDir] stringByAppendingPathComponent: @"images"];
+  NSString *thumbnailsDir
+      = [[self exportDir] stringByAppendingPathComponent: @"thumbnails"];
+  succeeded = [self createDir: (dest = imagesDir)];
+  if (succeeded)
+    succeeded = [self createDir: (dest = thumbnailsDir)];
+  
+  NSMutableArray *names = [NSMutableArray arrayWithCapacity:count];
+  if (succeeded && count > 1) {
+    int i;
+    for (i = 0; cancelExport_ == NO && succeeded == YES && i < count; ++i) {
+      [self lockProgress];
+      progress_.currentItem = i;
+      [progress_.message autorelease];
+      progress_.message = [[NSString stringWithFormat:@"Image %d of %d",
+          i + 1, count] retain];
+      [self unlockProgress];
+      
+      dest = [imagesDir stringByAppendingPathComponent:
+          [NSString stringWithFormat:@"%d.jpg", i + 1]];      
+      succeeded = [exportMgr_ exportImageAtIndex:i dest:dest
+          options:&imageOptions];
+      if (succeeded) {
+        dest = [thumbnailsDir stringByAppendingPathComponent:
+            [NSString stringWithFormat:@"%d.png", i + 1]];      
+        succeeded = [exportMgr_ exportImageAtIndex:i dest:dest
+            options:&thumbnailOptions];
+      }
+      [names addObject: [NSString stringWithFormat:@"%d", i + 1]];
+    }
+  } else if (succeeded) {
+    [self lockProgress];
+    progress_.currentItem = 0;
+    [progress_.message autorelease];
+    progress_.message = @"Image 1 of 1";
+    [self unlockProgress];
+
+    dest = [self exportDir];
+    succeeded = [exportMgr_ exportImageAtIndex:0 dest:dest
+        options:&imageOptions];
+  }
+
+  // copy index.html and write images.js
+  if (succeeded) {
+    dest = [[self exportDir] stringByAppendingPathComponent:@"index.html"];
+    succeeded = [self writeIndexHtml:dest];
+  }
+  if (succeeded) {
+    dest = [[self exportDir] stringByAppendingPathComponent:@"images.js"];
+    succeeded = [self writeImagesJs:names toPath:dest];
+  }
+  
+  // Handle failure
+  if (!succeeded) {
+    [self lockProgress];
+    [progress_.message autorelease];
+    progress_.message = [[NSString stringWithFormat:@"Unable to create %@", 
+        dest] retain];
+    [self cancelExport];
+    progress_.shouldCancel = YES;
+    [self unlockProgress];
+    return;
+  }
+  
+  // close the progress panel when done
+  [self lockProgress];
+  [progress_.message autorelease];
+  progress_.message = nil;
+  progress_.shouldStop = YES;
+  [self unlockProgress];
 }
 
-- (void)lockProgress
-{
-	[mProgressLock lock];
+- (ExportPluginProgress *)progress {
+  return &progress_;
 }
 
-- (void)unlockProgress
-{
-	[mProgressLock unlock];
+- (void)lockProgress {
+  [progressLock_ lock];
 }
 
-- (void)cancelExport
-{
-	mCancelExport = YES;
+- (void)unlockProgress {
+  [progressLock_ unlock];
 }
 
-- (NSString *)name
-{
-	return @"Slideshow Exporter";
+- (void)cancelExport {
+  cancelExport_ = YES;
+}
+
+- (NSString *)name {
+  return @"Slide Show Exporter";
 }
 
 // private methods
-- (BOOL)createDir:(NSString *)dir
-{
-	NSError *error;
-	BOOL succeeded = [mFileManager createDirectoryAtPath: dir withIntermediateDirectories: NO
-		attributes: nil error: &error];
-	return succeeded;
+- (BOOL)createDir:(NSString *)dir {
+  NSError *error;
+  return [fileManager_ createDirectoryAtPath: dir
+      withIntermediateDirectories: NO attributes: nil error: &error];
 }
 
-- (BOOL)writeImagesJs:(NSArray *)names toPath:(NSString *)dest
-{
-	int i, count = [names count];
-	NSMutableString *buffer =  [NSMutableString stringWithCapacity:20*count];
-	for(i = 0; i < count; ++i) {
-		[buffer appendFormat:@"pushimage('%@');\n", [names objectAtIndex:i]];
-	}
-	[mFileManager removeFileAtPath:dest handler:nil]; // ignore errors
-	NSError *error;
-	BOOL succeeded = [buffer writeToFile:dest atomically:NO
-		encoding:NSUTF8StringEncoding error:&error];
-	if (succeeded)
-		NSLog(@"Wrote initialization to %@", dest);
-	else
-		NSLog(@"Failed to write initialization to %@", dest);
-	return succeeded;
+- (BOOL)writeImagesJs:(NSArray *)names toPath:(NSString *)dest {
+  int i, count = [names count];
+  NSMutableString *buffer = [NSMutableString stringWithCapacity:20*count];
+
+  for (i = 0; i < count; ++i)
+    [buffer appendFormat:@"pushimage('%@');\n", [names objectAtIndex:i]];
+    
+  [fileManager_ removeFileAtPath:dest handler:nil]; // ignore errors
+  NSError *error;
+  BOOL succeeded = [buffer writeToFile:dest atomically:NO
+      encoding:NSUTF8StringEncoding error:&error];
+  if (succeeded)
+    NSLog(@"Wrote initialization to %@", dest);
+  else
+    NSLog(@"Failed to write initialization to %@", dest);
+  return succeeded;
 }
 
-- (BOOL)writeIndexHtml:(NSString *)dest
-{
-	BOOL succeeded = NO;
-	NSBundle *thisBundle = [NSBundle bundleForClass:[self class]];
-	NSString *indexHtmlPath;
-	if (indexHtmlPath = [thisBundle pathForResource:@"index" ofType:@"html"])  {
-		// copy index.html to the top-level export directory
-		[mFileManager removeFileAtPath:dest handler:nil]; // ignore errors
-		succeeded = [mFileManager copyPath:indexHtmlPath toPath:dest handler:nil];
-		if (succeeded)
-			NSLog(@"Copied %@ to %@", indexHtmlPath, dest);
-		else
-			NSLog(@"Failed to copy %@ to %@", indexHtmlPath, dest); 
-	} else
-		NSLog(@"Could not find index.html");
-	return succeeded;
+- (BOOL)writeIndexHtml:(NSString *)dest {
+  BOOL succeeded = NO;
+  NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+  NSString *indexHtmlPath = [bundle pathForResource:@"index" ofType:@"html"];
+
+  if (indexHtmlPath)  {
+    // copy index.html to the top-level export directory
+    [fileManager_ removeFileAtPath:dest handler:nil]; // ignore errors
+    succeeded = [fileManager_ copyPath:indexHtmlPath toPath:dest handler:nil];
+    if (succeeded)
+      NSLog(@"Copied %@ to %@", indexHtmlPath, dest);
+    else
+      NSLog(@"Failed to copy %@ to %@", indexHtmlPath, dest); 
+  } else
+    NSLog(@"Could not find index.html");
+  return succeeded;
 }
 
 @end

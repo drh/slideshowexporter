@@ -7,7 +7,6 @@
 //
 
 /*
-
 File: SFExportPluginBox.h
 
 Version: 1.0
@@ -51,17 +50,18 @@ STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 
 Copyright © 2007 Apple Inc. All Rights Reserved
-
 */
 
 #import <Cocoa/Cocoa.h>
 #import "ExportPluginProtocol.h"
 #import "ExportPluginBoxProtocol.h"
 
+// iPhoto plugin box.
 @interface SFExportPluginBox : NSBox <ExportPluginBoxProtocol> {
-	IBOutlet id <ExportPluginProtocol> mPlugin;
+ @public
+  IBOutlet id <ExportPluginProtocol> plugin_;
 }
 
-- (BOOL)performKeyEquivalent:(NSEvent *)anEvent;
+- (BOOL)performKeyEquivalent:(NSEvent *)event;
 
 @end

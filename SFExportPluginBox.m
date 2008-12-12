@@ -7,7 +7,6 @@
 //
 
 /*
-
 File: SFExportPluginBox.m
 
 Version: 1.0
@@ -51,7 +50,6 @@ STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 
 Copyright © 2007 Apple Inc. All Rights Reserved
-
 */
 
 #import "SFExportPluginBox.h"
@@ -59,26 +57,21 @@ Copyright © 2007 Apple Inc. All Rights Reserved
 
 @implementation SFExportPluginBox
 
-- (BOOL)performKeyEquivalent:(NSEvent *)anEvent
-{
-	NSString *keyString = [anEvent charactersIgnoringModifiers];
-	unichar keyChar = [keyString characterAtIndex:0];
-	
-	switch (keyChar)
-	{
-		case NSFormFeedCharacter:
-		case NSNewlineCharacter:
-		case NSCarriageReturnCharacter:
-		case NSEnterCharacter:
-		{
-			[mPlugin clickExport];
-			return(YES);
-		}
-		default:
-			break;
-	}
-
-    return([super performKeyEquivalent:anEvent]);
+- (BOOL)performKeyEquivalent:(NSEvent *)event {
+  NSString *keyString = [event charactersIgnoringModifiers];
+  unichar keyChar = [keyString characterAtIndex:0];
+  
+  switch (keyChar) {
+    case NSFormFeedCharacter:
+    case NSNewlineCharacter:
+    case NSCarriageReturnCharacter:
+    case NSEnterCharacter:
+      [plugin_ clickExport];
+      return YES;
+    default:
+      break;
+  }
+  return [super performKeyEquivalent:event];
 }
 
 @end

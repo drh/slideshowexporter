@@ -19,7 +19,8 @@ td#imageurl { text-align: right; color: gray;}
 <script>
 var images = [ {} ];
 function pushimage(basename) {
-  images.push({ image: 'images/' + basename + '.jpg', thumbnail: 'thumbnails/' + basename + '.png', title: '' });
+  images.push({ image: 'images/' + basename + '.jpg', 
+      thumbnail: 'thumbnails/' + basename + '.png', title: '' });
 }
 function id(x) {
   return typeof x == 'string' ? document.getElementById(x) : x;
