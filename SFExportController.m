@@ -373,9 +373,7 @@ Copyright © 2007 Apple Inc. All Rights Reserved
 
 // private methods
 - (BOOL)createDir:(NSString *)dir {
-  NSError *error;
-  return [fileManager_ createDirectoryAtPath: dir
-      withIntermediateDirectories: NO attributes: nil error: &error];
+  return [fileManager_ createDirectoryAtPath:dir attributes:nil];
 }
 
 - (BOOL)writeImagesJs:(NSArray *)names toPath:(NSString *)dest {
