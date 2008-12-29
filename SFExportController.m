@@ -54,7 +54,7 @@ Copyright © 2007 Apple Inc. All Rights Reserved
 
 #import "SFExportController.h"
 #import <QuickTime/QuickTime.h>
-#import "GTMDefines.h"
+#import "external/gtm/GTMDefines.h"
 
 static int const FULL_SIZE = 99999;
 
