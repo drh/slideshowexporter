@@ -55,6 +55,8 @@ Copyright © 2007 Apple Inc. All Rights Reserved
 #import "SFExportController.h"
 #import <QuickTime/QuickTime.h>
 
+static int const FULL_SIZE = 99999;
+
 // Private methods used in SFExportController.
 @interface SFExportController (PrivateMethods)
 
@@ -78,17 +80,14 @@ Copyright © 2007 Apple Inc. All Rights Reserved
     exportMgr_ = obj;
     progress_.message = nil;
     progressLock_ = [[NSLock alloc] init];
-    fileManager_ = [NSFileManager defaultManager];
   }
   return self;
 }
 
 - (void)dealloc {
-  [fileManager_ release];
   [exportDir_ release];
   [progressLock_ release];
-  [progress_.message release];
-  
+  [progress_.message release];  
   [super dealloc];
 }
 
@@ -142,10 +141,7 @@ Copyright © 2007 Apple Inc. All Rights Reserved
 }
 
 - (NSString *)requiredFileType {
-  if ([exportMgr_ imageCount] > 1)
-    return @"";
-  else
-    return @"jpg";
+  return @"";
 }
 
 - (BOOL)wantsDestinationPrompt {
@@ -157,10 +153,7 @@ Copyright © 2007 Apple Inc. All Rights Reserved
 }
 
 - (NSString *)defaultFileName {
-  if ([exportMgr_ imageCount] > 1)
-    return @"";
-  else
-    return @"0";
+  return @"";
 }
 
 - (NSString *)defaultDirectory {
@@ -191,26 +184,20 @@ Copyright © 2007 Apple Inc. All Rights Reserved
   int count = [exportMgr_ imageCount];
   
   // check for conflicting file names
-  if (count == 1) {
-    [exportMgr_ startExport];
-  } else {
-    int i;
-    for (i = 0; i < count; ++i) {
-      NSString *fileName = [NSString stringWithFormat:@"images/%d.jpg", i + 1];
-      if ([fileManager_ fileExistsAtPath:
-          [path stringByAppendingPathComponent:fileName]])
-        break;
-    }
-    if (i != count) {
-      if (NSRunCriticalAlertPanel(@"File exists",
-          @"One or more images already exist in directory.", 
-          @"Replace", nil, @"Cancel") == NSAlertDefaultReturn)
-        [exportMgr_ startExport];
-      else
-        return;
-    } else {
+  int i;
+  for (i = 0; i < count; ++i) {
+    NSString *fileName = [NSString stringWithFormat:@"images/%d.jpg", i + 1];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:
+        [path stringByAppendingPathComponent:fileName]])
+      break;
+  }
+  if (i != count) {
+    if (NSRunCriticalAlertPanel(@"File exists",
+        @"One or more images already exist in directory.", 
+        @"Replace", nil, @"Cancel") == NSAlertDefaultReturn)
       [exportMgr_ startExport];
-    }
+  } else {
+    [exportMgr_ startExport];
   }
 }
 
@@ -225,7 +212,7 @@ Copyright © 2007 Apple Inc. All Rights Reserved
   // set export options
   ImageExportOptions imageOptions;
   imageOptions.format = kQTFileTypeJPEG;
-  switch([self quality]) {
+  switch ([self quality]) {
     case 0:  imageOptions.quality = EQualityLow;  break;
     case 1:  imageOptions.quality = EQualityMed;  break;
     case 2:  imageOptions.quality = EQualityHigh; break;
@@ -233,7 +220,7 @@ Copyright © 2007 Apple Inc. All Rights Reserved
     default: imageOptions.quality = EQualityHigh; break;
   }
   imageOptions.rotation = 0.0;
-  switch([self size]) {
+  switch ([self size]) {
     case 0:
       imageOptions.width = 320;
       imageOptions.height = 320;
@@ -247,15 +234,15 @@ Copyright © 2007 Apple Inc. All Rights Reserved
       imageOptions.height = 1280;
       break;
     case 3:
-      imageOptions.width = 99999;
-      imageOptions.height = 99999;
+      imageOptions.width = FULL_SIZE;
+      imageOptions.height = FULL_SIZE;
       break;
     default:
       imageOptions.width = 1280;
       imageOptions.height = 1280;
       break;
   }
-  if([self metadata] == NSOnState)
+  if ([self metadata] == NSOnState)
     imageOptions.metadata = EMBoth;
   else
     imageOptions.metadata = NO;
@@ -267,7 +254,7 @@ Copyright © 2007 Apple Inc. All Rights Reserved
   thumbnailOptions.width = 100;
   thumbnailOptions.height = 100;
     
-  // Do the export
+  // do the export
   [self lockProgress];
   progress_.indeterminateProgress = NO;
   progress_.totalItems = count - 1;
@@ -276,15 +263,17 @@ Copyright © 2007 Apple Inc. All Rights Reserved
   [self unlockProgress];
   
   NSString *dest;
+  NSString *dir = [self exportDir];
   
   // create the thumbnails and images directories
-  NSString *imagesDir
-      = [[self exportDir] stringByAppendingPathComponent: @"images"];
-  NSString *thumbnailsDir
-      = [[self exportDir] stringByAppendingPathComponent: @"thumbnails"];
-  succeeded = [self createDir: (dest = imagesDir)];
-  if (succeeded)
-    succeeded = [self createDir: (dest = thumbnailsDir)];
+  NSString *imagesDir = [dir stringByAppendingPathComponent:@"images"];
+  NSString *thumbnailsDir = [dir stringByAppendingPathComponent:@"thumbnails"];
+  dest = imagesDir;
+  succeeded = [self createDir:dest];
+  if (succeeded) {
+    dest = thumbnailsDir;
+    succeeded = [self createDir:dest];
+  }
   
   NSMutableArray *names = [NSMutableArray arrayWithCapacity:count];
   if (succeeded && count > 1) {
@@ -316,38 +305,32 @@ Copyright © 2007 Apple Inc. All Rights Reserved
     progress_.message = @"Image 1 of 1";
     [self unlockProgress];
 
-    dest = [self exportDir];
+    dest = dir;
     succeeded = [exportMgr_ exportImageAtIndex:0 dest:dest
         options:&imageOptions];
   }
 
   // copy index.html and write images.js
   if (succeeded) {
-    dest = [[self exportDir] stringByAppendingPathComponent:@"index.html"];
+    dest = [dir stringByAppendingPathComponent:@"index.html"];
     succeeded = [self writeIndexHtml:dest];
   }
   if (succeeded) {
-    dest = [[self exportDir] stringByAppendingPathComponent:@"images.js"];
+    dest = [dir stringByAppendingPathComponent:@"images.js"];
     succeeded = [self writeImagesJs:names toPath:dest];
   }
   
-  // Handle failure
-  if (!succeeded) {
-    [self lockProgress];
-    [progress_.message autorelease];
+  [self lockProgress];
+  [progress_.message autorelease];
+  if (!succeeded) { // handle failure
     progress_.message = [[NSString stringWithFormat:@"Unable to create %@", 
         dest] retain];
     [self cancelExport];
     progress_.shouldCancel = YES;
-    [self unlockProgress];
-    return;
+  } else { // handle success
+    progress_.message = nil;
+    progress_.shouldStop = YES;
   }
-  
-  // close the progress panel when done
-  [self lockProgress];
-  [progress_.message autorelease];
-  progress_.message = nil;
-  progress_.shouldStop = YES;
   [self unlockProgress];
 }
 
@@ -373,7 +356,8 @@ Copyright © 2007 Apple Inc. All Rights Reserved
 
 // private methods
 - (BOOL)createDir:(NSString *)dir {
-  return [fileManager_ createDirectoryAtPath:dir attributes:nil];
+  return [[NSFileManager defaultManager] createDirectoryAtPath:dir
+      attributes:nil];
 }
 
 - (BOOL)writeImagesJs:(NSArray *)names toPath:(NSString *)dest {
@@ -382,8 +366,9 @@ Copyright © 2007 Apple Inc. All Rights Reserved
 
   for (i = 0; i < count; ++i)
     [buffer appendFormat:@"pushimage('%@');\n", [names objectAtIndex:i]];
-    
-  [fileManager_ removeFileAtPath:dest handler:nil]; // ignore errors
+  
+  // ignore remove errors
+  [[NSFileManager defaultManager] removeFileAtPath:dest handler:nil];
   NSError *error;
   BOOL succeeded = [buffer writeToFile:dest atomically:NO
       encoding:NSUTF8StringEncoding error:&error];
@@ -400,9 +385,10 @@ Copyright © 2007 Apple Inc. All Rights Reserved
   NSString *indexHtmlPath = [bundle pathForResource:@"index" ofType:@"html"];
 
   if (indexHtmlPath)  {
-    // copy index.html to the top-level export directory
-    [fileManager_ removeFileAtPath:dest handler:nil]; // ignore errors
-    succeeded = [fileManager_ copyPath:indexHtmlPath toPath:dest handler:nil];
+    // copy index.html to the top-level export directory; ignore remove errors
+    [[NSFileManager defaultManager] removeFileAtPath:dest handler:nil];
+    succeeded = [[NSFileManager defaultManager] copyPath:indexHtmlPath 
+        toPath:dest handler:nil];
     if (succeeded)
       NSLog(@"Copied %@ to %@", indexHtmlPath, dest);
     else
