@@ -54,6 +54,7 @@ Copyright © 2007 Apple Inc. All Rights Reserved
 
 #import "SFExportController.h"
 #import <QuickTime/QuickTime.h>
+#import "GTMDefines.h"
 
 static int const FULL_SIZE = 99999;
 
@@ -184,11 +185,12 @@ static int const FULL_SIZE = 99999;
   int count = [exportMgr_ imageCount];
   
   // check for conflicting file names
+  NSFileManager *fileManager = [NSFileManager defaultManager];
   int i;
   for (i = 0; i < count; ++i) {
     NSString *fileName = [NSString stringWithFormat:@"images/%d.jpg", i + 1];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:
-        [path stringByAppendingPathComponent:fileName]])
+    if ([fileManager fileExistsAtPath: 
+         [path stringByAppendingPathComponent:fileName]])
       break;
   }
   if (i != count) {
@@ -207,7 +209,7 @@ static int const FULL_SIZE = 99999;
   cancelExport_ = NO;
   
   [self setExportDir:path];
-  NSLog(@"performExport path: %@, count: %d", [self exportDir], count);
+  _GTMDevLog(@"performExport path: %@, count: %d", [self exportDir], count);
   
   // set export options
   ImageExportOptions imageOptions;
@@ -373,7 +375,7 @@ static int const FULL_SIZE = 99999;
   BOOL succeeded = [buffer writeToFile:dest atomically:NO
       encoding:NSUTF8StringEncoding error:&error];
   if (succeeded)
-    NSLog(@"Wrote initialization to %@", dest);
+    _GTMDevLog(@"Wrote initialization to %@", dest);
   else
     NSLog(@"Failed to write initialization to %@", dest);
   return succeeded;
@@ -390,7 +392,7 @@ static int const FULL_SIZE = 99999;
     succeeded = [[NSFileManager defaultManager] copyPath:indexHtmlPath 
         toPath:dest handler:nil];
     if (succeeded)
-      NSLog(@"Copied %@ to %@", indexHtmlPath, dest);
+      _GTMDevLog(@"Copied %@ to %@", indexHtmlPath, dest);
     else
       NSLog(@"Failed to copy %@ to %@", indexHtmlPath, dest); 
   } else
