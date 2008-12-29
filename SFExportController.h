@@ -68,8 +68,6 @@ Copyright © 2007 Apple Inc. All Rights Reserved
   IBOutlet NSButton *metadataButton_;
   
  @private
-  NSFileManager *fileManager_;
-  
   NSString *exportDir_;
   int size_;
   int quality_;
