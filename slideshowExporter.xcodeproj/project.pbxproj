@@ -20,7 +20,7 @@
 		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		3D2786720F097DFD0093A3C1 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		3D2786790F09875F0093A3C1 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMDefines.h; path = external/gtm/GTMDefines.h; sourceTree = "<group>"; };
 		3D564C890EBD179C00EB6DEF /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		3D6B433E0EC2ABD100B03956 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Panel.xib; sourceTree = "<group>"; };
 		3DD0F5110EF1F6F4008704F1 /* slideshowExporter.iPhotoExporter */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = slideshowExporter.iPhotoExporter; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,10 +82,10 @@
 		08FB77AFFE84173DC02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				3D2786720F097DFD0093A3C1 /* GTMDefines.h */,
 				74F6E6290C5558C7007349A9 /* ExportImageProtocol.h */,
 				74F6E62B0C5558C7007349A9 /* ExportPluginBoxProtocol.h */,
 				74F6E62A0C5558C7007349A9 /* ExportPluginProtocol.h */,
+				3D2786790F09875F0093A3C1 /* GTMDefines.h */,
 				89C19E1B0A4C5DA500FFEA3D /* SFExportController.h */,
 				89C19E1C0A4C5DA500FFEA3D /* SFExportController.m */,
 				89C19E200A4C5DD100FFEA3D /* SFExportPluginBox.h */,
