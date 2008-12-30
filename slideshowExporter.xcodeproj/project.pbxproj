@@ -7,10 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3D564C8A0EBD179C00EB6DEF /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 3D564C890EBD179C00EB6DEF /* index.html */; };
-		3D6B433F0EC2ABD100B03956 /* Panel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D6B433D0EC2ABD100B03956 /* Panel.xib */; };
-		89C19E1D0A4C5DA500FFEA3D /* SFExportController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C19E1C0A4C5DA500FFEA3D /* SFExportController.m */; };
-		89C19E220A4C5DD100FFEA3D /* SFExportPluginBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C19E210A4C5DD100FFEA3D /* SFExportPluginBox.m */; };
+		3D4D6AE60F0ADC1F00699D78 /* LoadableBundle.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3D4D6AE50F0ADC1F00699D78 /* LoadableBundle.xcconfig */; };
+		3D4D6B020F0ADE6500699D78 /* Panel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D4D6B000F0ADE6500699D78 /* Panel.xib */; };
+		3D89F5720F0AD67900F2A3CE /* SFExportController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D89F56D0F0AD67900F2A3CE /* SFExportController.m */; };
+		3D89F5730F0AD67900F2A3CE /* SFExportPluginBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D89F56F0F0AD67900F2A3CE /* SFExportPluginBox.m */; };
+		3D89F5750F0AD68600F2A3CE /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 3D89F5740F0AD68600F2A3CE /* index.html */; };
+		3D89F5790F0AD75D00F2A3CE /* DebugTigerOrLater.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3D89F5770F0AD75D00F2A3CE /* DebugTigerOrLater.xcconfig */; };
+		3D89F57A0F0AD75D00F2A3CE /* ReleaseTigerOrLater.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3D89F5780F0AD75D00F2A3CE /* ReleaseTigerOrLater.xcconfig */; };
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
@@ -20,17 +23,21 @@
 		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		3D2786790F09875F0093A3C1 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMDefines.h; path = external/gtm/GTMDefines.h; sourceTree = "<group>"; };
-		3D564C890EBD179C00EB6DEF /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
-		3D6B433E0EC2ABD100B03956 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Panel.xib; sourceTree = "<group>"; };
-		3DD0F5110EF1F6F4008704F1 /* slideshowExporter.iPhotoExporter */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = slideshowExporter.iPhotoExporter; sourceTree = BUILT_PRODUCTS_DIR; };
-		74F6E6290C5558C7007349A9 /* ExportImageProtocol.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ExportImageProtocol.h; sourceTree = "<group>"; };
-		74F6E62A0C5558C7007349A9 /* ExportPluginProtocol.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ExportPluginProtocol.h; sourceTree = "<group>"; };
-		74F6E62B0C5558C7007349A9 /* ExportPluginBoxProtocol.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ExportPluginBoxProtocol.h; sourceTree = "<group>"; };
-		89C19E1B0A4C5DA500FFEA3D /* SFExportController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFExportController.h; sourceTree = "<group>"; };
-		89C19E1C0A4C5DA500FFEA3D /* SFExportController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFExportController.m; sourceTree = "<group>"; };
-		89C19E200A4C5DD100FFEA3D /* SFExportPluginBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFExportPluginBox.h; sourceTree = "<group>"; };
-		89C19E210A4C5DD100FFEA3D /* SFExportPluginBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFExportPluginBox.m; sourceTree = "<group>"; };
+		32DBCF630370AF2F00C91783 /* slideshowExporter_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = slideshowExporter_Prefix.pch; sourceTree = "<group>"; };
+		3D4D6AE50F0ADC1F00699D78 /* LoadableBundle.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = LoadableBundle.xcconfig; path = external/gtm/XcodeConfig/Target/LoadableBundle.xcconfig; sourceTree = "<group>"; };
+		3D4D6B010F0ADE6500699D78 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Panel.xib; sourceTree = "<group>"; };
+		3D89F56B0F0AD67900F2A3CE /* ExportPluginProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExportPluginProtocol.h; path = ../slideshowexporter/ExportPluginProtocol.h; sourceTree = SOURCE_ROOT; };
+		3D89F56C0F0AD67900F2A3CE /* SFExportController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SFExportController.h; path = ../slideshowexporter/SFExportController.h; sourceTree = SOURCE_ROOT; };
+		3D89F56D0F0AD67900F2A3CE /* SFExportController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SFExportController.m; path = ../slideshowexporter/SFExportController.m; sourceTree = SOURCE_ROOT; };
+		3D89F56E0F0AD67900F2A3CE /* SFExportPluginBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SFExportPluginBox.h; path = ../slideshowexporter/SFExportPluginBox.h; sourceTree = SOURCE_ROOT; };
+		3D89F56F0F0AD67900F2A3CE /* SFExportPluginBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SFExportPluginBox.m; path = ../slideshowexporter/SFExportPluginBox.m; sourceTree = SOURCE_ROOT; };
+		3D89F5700F0AD67900F2A3CE /* ExportImageProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExportImageProtocol.h; path = ../slideshowexporter/ExportImageProtocol.h; sourceTree = SOURCE_ROOT; };
+		3D89F5710F0AD67900F2A3CE /* ExportPluginBoxProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExportPluginBoxProtocol.h; path = ../slideshowexporter/ExportPluginBoxProtocol.h; sourceTree = SOURCE_ROOT; };
+		3D89F5740F0AD68600F2A3CE /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = index.html; path = ../slideshowexporter/index.html; sourceTree = SOURCE_ROOT; };
+		3D89F5760F0AD6C800F2A3CE /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMDefines.h; path = ../slideshowexporter/external/gtm/GTMDefines.h; sourceTree = SOURCE_ROOT; };
+		3D89F5770F0AD75D00F2A3CE /* DebugTigerOrLater.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = DebugTigerOrLater.xcconfig; path = ../slideshowexporter/external/gtm/XcodeConfig/Project/DebugTigerOrLater.xcconfig; sourceTree = SOURCE_ROOT; };
+		3D89F5780F0AD75D00F2A3CE /* ReleaseTigerOrLater.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = ReleaseTigerOrLater.xcconfig; path = ../slideshowexporter/external/gtm/XcodeConfig/Project/ReleaseTigerOrLater.xcconfig; sourceTree = SOURCE_ROOT; };
+		8D5B49B6048680CD000E48DA /* slideshowExporter.iPhotoExporter */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = slideshowExporter.iPhotoExporter; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
@@ -50,8 +57,11 @@
 		089C166AFE841209C02AAC07 /* slideshowExporter */ = {
 			isa = PBXGroup;
 			children = (
-				74F6E6300C5558D9007349A9 /* SDK Interface */,
-				08FB77AFFE84173DC02AAC07 /* Source */,
+				3D89F5770F0AD75D00F2A3CE /* DebugTigerOrLater.xcconfig */,
+				3D89F5780F0AD75D00F2A3CE /* ReleaseTigerOrLater.xcconfig */,
+				3D4D6AE50F0ADC1F00699D78 /* LoadableBundle.xcconfig */,
+				08FB77AFFE84173DC02AAC07 /* Classes */,
+				32C88E010371C26100C91783 /* Other Sources */,
 				089C167CFE841241C02AAC07 /* Resources */,
 				089C1671FE841209C02AAC07 /* Frameworks and Libraries */,
 				19C28FB8FE9D52D311CA2CBB /* Products */,
@@ -71,27 +81,26 @@
 		089C167CFE841241C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				3D6B433D0EC2ABD100B03956 /* Panel.xib */,
-				3D564C890EBD179C00EB6DEF /* index.html */,
+				3D4D6B000F0ADE6500699D78 /* Panel.xib */,
+				3D89F5740F0AD68600F2A3CE /* index.html */,
 				8D5B49B7048680CD000E48DA /* Info.plist */,
 				089C167DFE841241C02AAC07 /* InfoPlist.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		08FB77AFFE84173DC02AAC07 /* Source */ = {
+		08FB77AFFE84173DC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				74F6E6290C5558C7007349A9 /* ExportImageProtocol.h */,
-				74F6E62B0C5558C7007349A9 /* ExportPluginBoxProtocol.h */,
-				74F6E62A0C5558C7007349A9 /* ExportPluginProtocol.h */,
-				3D2786790F09875F0093A3C1 /* GTMDefines.h */,
-				89C19E1B0A4C5DA500FFEA3D /* SFExportController.h */,
-				89C19E1C0A4C5DA500FFEA3D /* SFExportController.m */,
-				89C19E200A4C5DD100FFEA3D /* SFExportPluginBox.h */,
-				89C19E210A4C5DD100FFEA3D /* SFExportPluginBox.m */,
+				3D89F56B0F0AD67900F2A3CE /* ExportPluginProtocol.h */,
+				3D89F56C0F0AD67900F2A3CE /* SFExportController.h */,
+				3D89F56D0F0AD67900F2A3CE /* SFExportController.m */,
+				3D89F56E0F0AD67900F2A3CE /* SFExportPluginBox.h */,
+				3D89F56F0F0AD67900F2A3CE /* SFExportPluginBox.m */,
+				3D89F5700F0AD67900F2A3CE /* ExportImageProtocol.h */,
+				3D89F5710F0AD67900F2A3CE /* ExportPluginBoxProtocol.h */,
 			);
-			name = Source;
+			name = Classes;
 			sourceTree = "<group>";
 		};
 		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
@@ -115,16 +124,18 @@
 		19C28FB8FE9D52D311CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3DD0F5110EF1F6F4008704F1 /* slideshowExporter.iPhotoExporter */,
+				8D5B49B6048680CD000E48DA /* slideshowExporter.iPhotoExporter */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		74F6E6300C5558D9007349A9 /* SDK Interface */ = {
+		32C88E010371C26100C91783 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				3D89F5760F0AD6C800F2A3CE /* GTMDefines.h */,
+				32DBCF630370AF2F00C91783 /* slideshowExporter_Prefix.pch */,
 			);
-			name = "SDK Interface";
+			name = "Other Sources";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -145,7 +156,7 @@
 			name = slideshowExporter;
 			productInstallPath = "$(HOME)/Library/Bundles";
 			productName = slideshowExporter;
-			productReference = 3DD0F5110EF1F6F4008704F1 /* slideshowExporter.iPhotoExporter */;
+			productReference = 8D5B49B6048680CD000E48DA /* slideshowExporter.iPhotoExporter */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -171,8 +182,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */,
-				3D564C8A0EBD179C00EB6DEF /* index.html in Resources */,
-				3D6B433F0EC2ABD100B03956 /* Panel.xib in Resources */,
+				3D89F5750F0AD68600F2A3CE /* index.html in Resources */,
+				3D89F5790F0AD75D00F2A3CE /* DebugTigerOrLater.xcconfig in Resources */,
+				3D89F57A0F0AD75D00F2A3CE /* ReleaseTigerOrLater.xcconfig in Resources */,
+				3D4D6AE60F0ADC1F00699D78 /* LoadableBundle.xcconfig in Resources */,
+				3D4D6B020F0ADE6500699D78 /* Panel.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,8 +197,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				89C19E1D0A4C5DA500FFEA3D /* SFExportController.m in Sources */,
-				89C19E220A4C5DD100FFEA3D /* SFExportPluginBox.m in Sources */,
+				3D89F5720F0AD67900F2A3CE /* SFExportController.m in Sources */,
+				3D89F5730F0AD67900F2A3CE /* SFExportPluginBox.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,10 +213,10 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		3D6B433D0EC2ABD100B03956 /* Panel.xib */ = {
+		3D4D6B000F0ADE6500699D78 /* Panel.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				3D6B433E0EC2ABD100B03956 /* English */,
+				3D4D6B010F0ADE6500699D78 /* English */,
 			);
 			name = Panel.xib;
 			sourceTree = "<group>";
@@ -212,50 +226,34 @@
 /* Begin XCBuildConfiguration section */
 		1DEB913B08733D840010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3D4D6AE50F0ADC1F00699D78 /* LoadableBundle.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
-				DEPLOYMENT_LOCATION = YES;
-				DSTROOT = /;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = slideshowExporter_Prefix.pch;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
-				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
-				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
-				GCC_WARN_MISSING_PARENTHESES = NO;
-				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = NO;
-				GCC_WARN_UNKNOWN_PRAGMAS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_LABEL = YES;
-				GCC_WARN_UNUSED_PARAMETER = NO;
-				GCC_WARN_UNUSED_VALUE = YES;
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(HOME)/Library/Application Support/iPhoto/Plugins";
+				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				PRODUCT_NAME = slideshowExporter;
 				WRAPPER_EXTENSION = iPhotoExporter;
-				ZERO_LINK = YES;
 			};
 			name = Debug;
 		};
 		1DEB913C08733D840010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3D4D6AE50F0ADC1F00699D78 /* LoadableBundle.xcconfig */;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
-				DEPLOYMENT_LOCATION = YES;
-				DSTROOT = /;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = slideshowExporter_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(HOME)/Library/Application Support/iPhoto/Plugins";
+				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				PRODUCT_NAME = slideshowExporter;
 				WRAPPER_EXTENSION = iPhotoExporter;
 			};
@@ -263,22 +261,32 @@
 		};
 		1DEB913F08733D840010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3D89F5770F0AD75D00F2A3CE /* DebugTigerOrLater.xcconfig */;
 			buildSettings = {
-				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
+				PRODUCT_NAME = slideshowExporter;
 				SDKROOT = macosx10.4;
+				WRAPPER_EXTENSION = iPhotoExporter;
 			};
 			name = Debug;
 		};
 		1DEB914008733D840010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
+				PRODUCT_NAME = slideshowExporter;
 				SDKROOT = macosx10.4;
+				WRAPPER_EXTENSION = iPhotoExporter;
 			};
 			name = Release;
 		};
