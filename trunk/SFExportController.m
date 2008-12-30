@@ -77,11 +77,11 @@ static int const FULL_SIZE = 99999;
 }
 
 - (id)initWithExportImageObj:(id <ExportImageProtocol>)obj {
-  if (self = [super init]) {
-    exportMgr_ = obj;
-    progress_.message = nil;
-    progressLock_ = [[NSLock alloc] init];
-  }
+  if (![super init])
+    return nil;
+  exportMgr_ = obj;
+  progress_.message = nil;
+  progressLock_ = [[NSLock alloc] init];
   return self;
 }
 
