@@ -58,7 +58,7 @@ Copyright © 2007 Apple Inc. All Rights Reserved
 
 // iPhoto plugin box.
 @interface SFExportPluginBox : NSBox <ExportPluginBoxProtocol> {
- @public
+ @private
   IBOutlet id <ExportPluginProtocol> plugin_;
 }
 
