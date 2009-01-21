@@ -57,7 +57,7 @@ Copyright © 2007 Apple Inc. All Rights Reserved
 
 // iPhoto export controller derived from the iPhoto export plugin interface.
 @interface SFExportController : NSObject <ExportPluginProtocol> {
- @public
+ @private
   id <ExportImageProtocol> exportMgr_;
   
   IBOutlet NSBox <ExportPluginBoxProtocol> *settingsBox_;
@@ -67,7 +67,6 @@ Copyright © 2007 Apple Inc. All Rights Reserved
   IBOutlet NSPopUpButton *qualityPopUp_;
   IBOutlet NSButton *metadataButton_;
   
- @private
   NSString *exportDir_;
   int size_;
   int quality_;

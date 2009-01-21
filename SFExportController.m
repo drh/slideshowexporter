@@ -56,7 +56,7 @@ Copyright © 2007 Apple Inc. All Rights Reserved
 #import <QuickTime/QuickTime.h>
 #import "external/gtm/GTMDefines.h"
 
-static int const FULL_SIZE = 99999;
+static int const kFullSize = 99999;
 
 // Private methods used in SFExportController.
 @interface SFExportController (PrivateMethods)
@@ -69,19 +69,12 @@ static int const FULL_SIZE = 99999;
 
 @implementation SFExportController
 
-// public methods
-- (void)awakeFromNib {
-  [sizePopUp_ selectItemWithTag:1];
-  [qualityPopUp_ selectItemWithTag:2];
-  [metadataButton_ setState:NSOffState];
-}
-
 - (id)initWithExportImageObj:(id <ExportImageProtocol>)obj {
-  if (![super init])
-    return nil;
-  exportMgr_ = obj;
-  progress_.message = nil;
-  progressLock_ = [[NSLock alloc] init];
+  if (self = [super init]) {
+    exportMgr_ = obj;
+    progress_.message = nil;
+    progressLock_ = [[NSLock alloc] init];
+  }
   return self;
 }
 
@@ -90,6 +83,13 @@ static int const FULL_SIZE = 99999;
   [progressLock_ release];
   [progress_.message release];  
   [super dealloc];
+}
+
+// public methods
+- (void)awakeFromNib {
+  [sizePopUp_ selectItemWithTag:1];
+  [qualityPopUp_ selectItemWithTag:2];
+  [metadataButton_ setState:NSOffState];
 }
 
 // getters/setters
@@ -158,11 +158,16 @@ static int const FULL_SIZE = 99999;
 }
 
 - (NSString *)defaultDirectory {
-  return @"~/Desktop/";
+  NSArray *paths = NSSearchPathForDirectoriesInDomains(                                                       NSDesktopDirectory, NSUserDomainMask, YES);
+  if ([paths count] < 1) {
+    NSLog(@"Failed to get path to user's desktop");
+    return @"~/Desktop/";
+  }  
+  return [paths objectAtIndex:0];
 }
 
 - (BOOL)treatSingleSelectionDifferently {
-  return YES;
+  return NO;
 }
 
 - (BOOL)handlesMovieFiles {
@@ -189,8 +194,8 @@ static int const FULL_SIZE = 99999;
   int i;
   for (i = 0; i < count; ++i) {
     NSString *fileName = [NSString stringWithFormat:@"images/%d.jpg", i + 1];
-    if ([fileManager fileExistsAtPath: 
-         [path stringByAppendingPathComponent:fileName]])
+    NSString *fullPath = [path stringByAppendingPathComponent:fileName];
+    if ([fileManager fileExistsAtPath:fullPath])
       break;
   }
   if (i != count) {
@@ -213,6 +218,7 @@ static int const FULL_SIZE = 99999;
   
   // set export options
   ImageExportOptions imageOptions;
+  bzero(&imageOptions, sizeof imageOptions);
   imageOptions.format = kQTFileTypeJPEG;
   switch ([self quality]) {
     case 0:  imageOptions.quality = EQualityLow;  break;
@@ -236,8 +242,8 @@ static int const FULL_SIZE = 99999;
       imageOptions.height = 1280;
       break;
     case 3:
-      imageOptions.width = FULL_SIZE;
-      imageOptions.height = FULL_SIZE;
+      imageOptions.width = kFullSize;
+      imageOptions.height = kFullSize;
       break;
     default:
       imageOptions.width = 1280;
@@ -264,23 +270,22 @@ static int const FULL_SIZE = 99999;
   progress_.message = @"Exporting";
   [self unlockProgress];
   
-  NSString *dest;
   NSString *dir = [self exportDir];
   
   // create the thumbnails and images directories
   NSString *imagesDir = [dir stringByAppendingPathComponent:@"images"];
   NSString *thumbnailsDir = [dir stringByAppendingPathComponent:@"thumbnails"];
-  dest = imagesDir;
+  NSString *dest = imagesDir;
   succeeded = [self createDir:dest];
   if (succeeded) {
     dest = thumbnailsDir;
     succeeded = [self createDir:dest];
   }
   
-  NSMutableArray *names = [NSMutableArray arrayWithCapacity:count];
-  if (succeeded && count > 1) {
-    int i;
-    for (i = 0; cancelExport_ == NO && succeeded == YES && i < count; ++i) {
+  NSMutableArray *names;
+  if (succeeded) {
+    names = [NSMutableArray arrayWithCapacity:count];
+    for (int i = 0; cancelExport_ == NO && succeeded == YES && i < count; ++i) {
       [self lockProgress];
       progress_.currentItem = i;
       [progress_.message autorelease];
@@ -298,18 +303,8 @@ static int const FULL_SIZE = 99999;
         succeeded = [exportMgr_ exportImageAtIndex:i dest:dest
             options:&thumbnailOptions];
       }
-      [names addObject: [NSString stringWithFormat:@"%d", i + 1]];
+      [names addObject:[NSString stringWithFormat:@"%d", i + 1]];
     }
-  } else if (succeeded) {
-    [self lockProgress];
-    progress_.currentItem = 0;
-    [progress_.message autorelease];
-    progress_.message = @"Image 1 of 1";
-    [self unlockProgress];
-
-    dest = dir;
-    succeeded = [exportMgr_ exportImageAtIndex:0 dest:dest
-        options:&imageOptions];
   }
 
   // copy index.html and write images.js
@@ -358,26 +353,27 @@ static int const FULL_SIZE = 99999;
 
 // private methods
 - (BOOL)createDir:(NSString *)dir {
-  return [[NSFileManager defaultManager] createDirectoryAtPath:dir
-      attributes:nil];
+  NSFileManager *mgr = [NSFileManager defaultManager];
+  return [mgr createDirectoryAtPath:dir attributes:nil];
 }
 
 - (BOOL)writeImagesJs:(NSArray *)names toPath:(NSString *)dest {
-  int i, count = [names count];
+  int count = [names count];
   NSMutableString *buffer = [NSMutableString stringWithCapacity:20*count];
-
-  for (i = 0; i < count; ++i)
+  for (int i = 0; i < count; ++i) {
     [buffer appendFormat:@"pushimage('%@');\n", [names objectAtIndex:i]];
+  }
   
   // ignore remove errors
   [[NSFileManager defaultManager] removeFileAtPath:dest handler:nil];
   NSError *error;
   BOOL succeeded = [buffer writeToFile:dest atomically:NO
       encoding:NSUTF8StringEncoding error:&error];
-  if (succeeded)
+  if (succeeded) {
     _GTMDevLog(@"Wrote initialization to %@", dest);
-  else
+  } else {
     NSLog(@"Failed to write initialization to %@", dest);
+  }
   return succeeded;
 }
 
@@ -387,16 +383,18 @@ static int const FULL_SIZE = 99999;
   NSString *indexHtmlPath = [bundle pathForResource:@"index" ofType:@"html"];
 
   if (indexHtmlPath)  {
+    NSFileManager *mgr = [NSFileManager defaultManager];
     // copy index.html to the top-level export directory; ignore remove errors
-    [[NSFileManager defaultManager] removeFileAtPath:dest handler:nil];
-    succeeded = [[NSFileManager defaultManager] copyPath:indexHtmlPath 
-        toPath:dest handler:nil];
-    if (succeeded)
+    [mgr removeFileAtPath:dest handler:nil];
+    succeeded = [mgr copyPath:indexHtmlPath toPath:dest handler:nil];
+    if (succeeded) {
       _GTMDevLog(@"Copied %@ to %@", indexHtmlPath, dest);
-    else
-      NSLog(@"Failed to copy %@ to %@", indexHtmlPath, dest); 
-  } else
+    } else {
+      NSLog(@"Failed to copy %@ to %@", indexHtmlPath, dest);
+    }
+  } else {
     NSLog(@"Could not find index.html");
+  }
   return succeeded;
 }
 
