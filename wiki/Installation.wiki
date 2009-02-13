@@ -2,7 +2,7 @@
 
 You must be using iPhoto'08 to use the Slide Show Exporter.
 
-Download Slideshow Exporter.dmg. The disk image should be opened automatically; if not, find and double click the .dmg file. The disk image includes slideshowExporter.iPhotoExporter.
+Download SlideshowExporter-YYYYMMDD.dmg. The disk image should be opened automatically; if not, find and double click the .dmg file. The disk image includes slideshowExporter.iPhotoExporter.
 
 Quit iPhoto, if necessary, and perform one of the following steps depending how you want to install the Slide Show Exporter.
 
