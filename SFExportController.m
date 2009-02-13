@@ -5,8 +5,8 @@
 //  Created by Apple; modified by Dave Hanson on 11/17/2008.
 //  Copyright 2008 Google Inc. All rights reserved.
 //
-
 /*
+
 File: SFExportController.m
 
 Version: 1.0
@@ -25,7 +25,7 @@ license, under Apple's copyrights in this original Apple software (the
 Software, with or without modifications, in source and/or binary forms;
 provided that if you redistribute the Apple Software in its entirety and
 without modifications, you must retain this notice and the following
-text and disclaimers in all such redistributions of the Apple Software. 
+text and disclaimers in all such redistributions of the Apple Software.
 Neither the name, trademarks, service marks or logos of Apple Inc.
 may be used to endorse or promote products derived from the Apple
 Software without specific prior written permission from Apple.  Except
@@ -81,7 +81,7 @@ static int const kFullSize = 99999;
 - (void)dealloc {
   [exportDir_ release];
   [progressLock_ release];
-  [progress_.message release];  
+  [progress_.message release];
   [super dealloc];
 }
 
@@ -158,11 +158,11 @@ static int const kFullSize = 99999;
 }
 
 - (NSString *)defaultDirectory {
-  NSArray *paths = NSSearchPathForDirectoriesInDomains(                                                       NSDesktopDirectory, NSUserDomainMask, YES);
+  NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDesktopDirectory, NSUserDomainMask, YES);
   if ([paths count] < 1) {
     NSLog(@"Failed to get path to user's desktop");
     return @"~/Desktop/";
-  }  
+  }
   return [paths objectAtIndex:0];
 }
 
@@ -186,9 +186,9 @@ static int const kFullSize = 99999;
   [self setSize:[sizePopUp_ selectedTag]];
   [self setQuality:[qualityPopUp_ selectedTag]];
   [self setMetadata:[metadataButton_ state]];
-  
+
   int count = [exportMgr_ imageCount];
-  
+
   // check for conflicting file names
   NSFileManager *fileManager = [NSFileManager defaultManager];
   int i;
@@ -200,7 +200,7 @@ static int const kFullSize = 99999;
   }
   if (i != count) {
     if (NSRunCriticalAlertPanel(@"File exists",
-        @"One or more images already exist in directory.", 
+        @"One or more images already exist in directory.",
         @"Replace", nil, @"Cancel") == NSAlertDefaultReturn)
       [exportMgr_ startExport];
   } else {
@@ -212,10 +212,10 @@ static int const kFullSize = 99999;
   int count = [exportMgr_ imageCount];
   BOOL succeeded = YES;
   cancelExport_ = NO;
-  
+
   [self setExportDir:path];
   _GTMDevLog(@"performExport path: %@, count: %d", [self exportDir], count);
-  
+
   // set export options
   ImageExportOptions imageOptions;
   bzero(&imageOptions, sizeof imageOptions);
@@ -254,14 +254,14 @@ static int const kFullSize = 99999;
     imageOptions.metadata = EMBoth;
   else
     imageOptions.metadata = NO;
-    
+
   // set thumbnail options so they load fast
   ImageExportOptions thumbnailOptions;
   thumbnailOptions.quality = EQualityLow;
   thumbnailOptions.format = kQTFileTypePNG;
   thumbnailOptions.width = 100;
   thumbnailOptions.height = 100;
-    
+
   // do the export
   [self lockProgress];
   progress_.indeterminateProgress = NO;
@@ -269,9 +269,9 @@ static int const kFullSize = 99999;
   [progress_.message autorelease];
   progress_.message = @"Exporting";
   [self unlockProgress];
-  
+
   NSString *dir = [self exportDir];
-  
+
   // create the thumbnails and images directories
   NSString *imagesDir = [dir stringByAppendingPathComponent:@"images"];
   NSString *thumbnailsDir = [dir stringByAppendingPathComponent:@"thumbnails"];
@@ -281,7 +281,7 @@ static int const kFullSize = 99999;
     dest = thumbnailsDir;
     succeeded = [self createDir:dest];
   }
-  
+
   NSMutableArray *names;
   if (succeeded) {
     names = [NSMutableArray arrayWithCapacity:count];
@@ -292,14 +292,14 @@ static int const kFullSize = 99999;
       progress_.message = [[NSString stringWithFormat:@"Image %d of %d",
           i + 1, count] retain];
       [self unlockProgress];
-      
+
       dest = [imagesDir stringByAppendingPathComponent:
-          [NSString stringWithFormat:@"%d.jpg", i + 1]];      
+          [NSString stringWithFormat:@"%d.jpg", i + 1]];
       succeeded = [exportMgr_ exportImageAtIndex:i dest:dest
           options:&imageOptions];
       if (succeeded) {
         dest = [thumbnailsDir stringByAppendingPathComponent:
-            [NSString stringWithFormat:@"%d.png", i + 1]];      
+            [NSString stringWithFormat:@"%d.png", i + 1]];
         succeeded = [exportMgr_ exportImageAtIndex:i dest:dest
             options:&thumbnailOptions];
       }
@@ -316,11 +316,11 @@ static int const kFullSize = 99999;
     dest = [dir stringByAppendingPathComponent:@"images.js"];
     succeeded = [self writeImagesJs:names toPath:dest];
   }
-  
+
   [self lockProgress];
   [progress_.message autorelease];
   if (!succeeded) { // handle failure
-    progress_.message = [[NSString stringWithFormat:@"Unable to create %@", 
+    progress_.message = [[NSString stringWithFormat:@"Unable to create %@",
         dest] retain];
     [self cancelExport];
     progress_.shouldCancel = YES;
@@ -363,7 +363,7 @@ static int const kFullSize = 99999;
   for (int i = 0; i < count; ++i) {
     [buffer appendFormat:@"pushimage('%@');\n", [names objectAtIndex:i]];
   }
-  
+
   // ignore remove errors
   [[NSFileManager defaultManager] removeFileAtPath:dest handler:nil];
   NSError *error;
